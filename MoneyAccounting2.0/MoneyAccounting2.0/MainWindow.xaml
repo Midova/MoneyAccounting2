@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MoneyAccounting2._0"
         mc:Ignorable="d"
-        Title="Домашний учет 2" Height="350" Width="525">
+        Title="Домашний учет версия 2" Height="350" Width="525">
     <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="Fale" Margin="1">
+                
+            </MenuItem>
+            <MenuItem Header="Edit" Margin="1">
+                
+            </MenuItem>
+            <MenuItem Header="Service" Margin="1">
+                
+            </MenuItem>
+            <MenuItem Header="Help" Margin="1">
+                
+            </MenuItem>
+        </Menu>
+
+        <Expander Grid.Row="1" Header="Filtr" Margin="1">
+            
+        </Expander>
+        <TabControl Grid.Row="2" VerticalAlignment="Top">
+            <TabItem Header="All">
+                <DataGrid>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Amount"/>
+                         <DataGridTextColumn Header="Amount"/>
+                         <DataGridTextColumn Header="Amount"/>
+                         <DataGridTextColumn Header="Amount"/>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
         
+        
+        <StackPanel Grid.Row="3">
+            <TextBlock Text="Balance" Margin="1"/>
+        </StackPanel>
     </Grid>
 </Window>
