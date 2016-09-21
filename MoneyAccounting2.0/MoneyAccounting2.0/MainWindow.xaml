@@ -15,13 +15,69 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="Fale" Margin="1">
-                
+                <MenuItem Header="Download" Command="{Binding}">
+                    <MenuItem.Icon>
+                        <Image Source="D:\fatcow-hosting-icons-3.9.2-all\fatcow-hosting-icons-3.9.2\FatCow_Icons16x16\download.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem  Header="Save">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="Save as...">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Close">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-            <MenuItem Header="Edit" Margin="1">
-                
+            <MenuItem Header="Transaction" Margin="1">
+                <MenuItem Header="Add">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Edit">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Delete">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Service" Margin="1">
-                
+                <MenuItem Header="Template">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Planning">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Investment">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Credits">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Help" Margin="1">
                 
@@ -31,23 +87,21 @@
         <Expander Grid.Row="1" Header="Filtr" Margin="1">
             
         </Expander>
-        <TabControl Grid.Row="2" VerticalAlignment="Top">
-            <TabItem Header="All">
-                <DataGrid>
+      
+                <DataGrid Grid.Row="2"  Margin="5" ItemsSource="{Binding}" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Category" Binding="{Binding}"/>
+                        <DataGridTextColumn Header="KindAccount"/> 
                         <DataGridTextColumn Header="Amount"/>
-                         <DataGridTextColumn Header="Amount"/>
-                         <DataGridTextColumn Header="Amount"/>
-                         <DataGridTextColumn Header="Amount"/>
-                        
+                        <DataGridTextColumn Header="DateTime"/>
+                        <DataGridTextColumn Header="Comment"/>                        
                     </DataGrid.Columns>
                 </DataGrid>
-            </TabItem>
-        </TabControl>
+           
         
         
         <StackPanel Grid.Row="3">
-            <TextBlock Text="Balance" Margin="1"/>
+            <TextBlock Text="Balance" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>
