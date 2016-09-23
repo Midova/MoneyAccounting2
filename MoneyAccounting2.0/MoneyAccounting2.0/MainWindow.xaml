@@ -85,7 +85,11 @@
         </Menu>
 
         <Expander Grid.Row="1" Header="Filtr" Margin="1">
-            
+            <Grid>
+                <Grid.RowDefinitions>
+                    
+                </Grid.RowDefinitions>
+            </Grid>
         </Expander>
       
                 <DataGrid Grid.Row="2"  Margin="5" ItemsSource="{Binding}" IsReadOnly="True" AutoGenerateColumns="False">
