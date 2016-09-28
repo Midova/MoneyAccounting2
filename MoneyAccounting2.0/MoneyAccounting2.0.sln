@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyAccounting2.0", "MoneyAccounting2.0\MoneyAccounting2.0.csproj", "{2DB141F8-2F56-4567-85E3-19DDB211E6FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionLibrary", "..\..\TransactionLibrary\TransactionLibrary\TransactionLibrary\TransactionLibrary.csproj", "{0FFB32D5-E2A2-41F3-9699-51F5CCFBFCFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyAccounting", "MoneyAccounting\MoneyAccounting.csproj", "{F42A87AD-DC7E-4578-BEEC-A57C57176B9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2DB141F8-2F56-4567-85E3-19DDB211E6FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DB141F8-2F56-4567-85E3-19DDB211E6FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DB141F8-2F56-4567-85E3-19DDB211E6FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DB141F8-2F56-4567-85E3-19DDB211E6FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FFB32D5-E2A2-41F3-9699-51F5CCFBFCFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FFB32D5-E2A2-41F3-9699-51F5CCFBFCFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FFB32D5-E2A2-41F3-9699-51F5CCFBFCFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FFB32D5-E2A2-41F3-9699-51F5CCFBFCFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F42A87AD-DC7E-4578-BEEC-A57C57176B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F42A87AD-DC7E-4578-BEEC-A57C57176B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F42A87AD-DC7E-4578-BEEC-A57C57176B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F42A87AD-DC7E-4578-BEEC-A57C57176B9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

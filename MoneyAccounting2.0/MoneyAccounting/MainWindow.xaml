@@ -1,0 +1,170 @@
+﻿<Controls:MetroWindow x:Class="MoneyAccounting.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MoneyAccounting"
+        mc:Ignorable="d"
+                      ShowIconOnTitleBar="True"                      
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="MainWindow" Height="450" Width="525">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column="0">
+            <MenuItem Header="File" >
+                <MenuItem Header="Download" Command="{Binding}">
+                    <MenuItem.Icon>
+                        <Image Source="D:\fatcow-hosting-icons-3.9.2-all\fatcow-hosting-icons-3.9.2\FatCow_Icons16x16\download.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem  Header="Save">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="Save as...">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Close">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Transaction" >
+                <MenuItem Header="Add">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Edit">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Delete">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Service" >
+                <MenuItem Header="Template">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Planning">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Investment">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Credits">
+                    <MenuItem.Icon>
+                        <Image Source=""/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Help">
+
+            </MenuItem>
+        </Menu>
+
+        <Expander Grid.Row="1" Header="Filter" HorizontalAlignment="Stretch">            
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Period:" VerticalAlignment="Center"/>
+                <Grid Grid.Row="0" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker  Grid.Column="0" VerticalAlignment="Center" Margin="1"/>
+                    <DatePicker  Grid.Column="1" VerticalAlignment="Center" Margin="1"/>
+                </Grid>
+                <GroupBox Header="Type" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3">
+                    <StackPanel>
+                        <RadioButton GroupName="AccountType" Margin="1">All</RadioButton>    
+                        <RadioButton GroupName="AccountType" Margin="1">Bank</RadioButton>
+                        <RadioButton GroupName="AccountType" Margin="1">Cash</RadioButton>    
+                    </StackPanel>                    
+                </GroupBox>
+                
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Category" VerticalAlignment="Stretch"/>
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="1" VerticalAlignment="Top"/>
+                
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Comment"/>
+                <ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="1"/>
+                                
+                <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1" Margin="4">Apply</Button>
+                    <Button Grid.Column="2" Margin="4">Clean</Button>
+                </Grid>
+            </Grid>
+        </Expander>
+
+        <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding}" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding}"/>
+                <DataGridTextColumn Header="KindAccount"/>
+                <DataGridTextColumn Header="Amount"/>
+                <DataGridTextColumn Header="DateTime"/>
+                <DataGridTextColumn Header="Comment"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid Grid.Row="3" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Parish:"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="Spending:"/>
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="4" Margin="5">
+            <TextBlock Text="Balance:"/>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>
