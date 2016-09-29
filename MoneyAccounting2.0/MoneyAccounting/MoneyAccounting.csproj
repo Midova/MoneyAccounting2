@@ -71,9 +71,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddTransactionMadeView.xaml.cs">
+      <DependentUpon>AddTransactionMadeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddTransactionMadeViewModel.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="OpenProjectFileService.cs" />
     <Compile Include="SaveProjectFileService.cs" />
+    <Page Include="AddTransactionMadeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

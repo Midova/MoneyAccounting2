@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MoneyAccounting"
         mc:Ignorable="d"
-        Title="AddTransactionMadeView" Height="300" Width="300">
-    <Grid>
+        Title="AddTransactionMadeView" Height="350" Width="300">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Category:" VerticalAlignment="Center"/>
+        <ComboBox  Grid.Column="1" Grid.Row="0" ItemsSource ="{Binding Categorys}" IsEditable="True" Margin="5"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Amount:" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Amount}" Margin="5"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="DateTime:" VerticalAlignment="Center"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" Margin="5" SelectedDate="{Binding DateTime}"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Comment:" VerticalAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Comment}" Margin="5"/>
         
+        <GroupBox Grid.Column="0" Grid.Row="4" Header="Type Account:" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                <RadioButton GroupName="AccountType" Margin="1">Bank</RadioButton>
+                <RadioButton GroupName="AccountType" Margin="1">Cash</RadioButton>  
+            </StackPanel>
+        </GroupBox>
+        
+        <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding IsAddTemlate}" Grid.ColumnSpan="2">Сохранить как шаблон</CheckBox >
+
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="5" Width="auto">
+            <Button >Добавить из шаблона</Button>
+            <Button Width="55" Margin="4,0">Ok</Button>            
+            <Button IsCancel="True" Width="55">Cancel</Button>            
+        </StackPanel>
+
     </Grid>
 </Window>

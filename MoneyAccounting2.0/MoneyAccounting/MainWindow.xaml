@@ -52,7 +52,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Transaction" >
-                <MenuItem Header="Add">
+                <MenuItem Header="Add" Command="{Binding AddTransactionMadeCommand}">
                     <MenuItem.Icon>
                         <Image Source=""/>
                     </MenuItem.Icon>

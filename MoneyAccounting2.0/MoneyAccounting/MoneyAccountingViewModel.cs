@@ -28,8 +28,10 @@ namespace MoneyAccounting
 
 			//создаем оболочку для работы со списком транзакций
 			ItemsTransactionMade = new ListCollectionView(_TransactionMade);
-			
-			
+
+
+
+			AddTransactionMadeCommand = new Command(AddTransactionMade);
 			
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
@@ -68,10 +70,26 @@ namespace MoneyAccounting
 		#endregion
 
 		#region Working with Transaction
+		/// <summary>
+		/// Получает обработчик добавления соверенной транзакции в список транзакций
+		/// </summary>
+		public ICommand AddTransactionMadeCommand { get; private set; }
 
+		/// <summary>
+		/// Метод: добавление соверенной транзакции в список транзакций
+		/// </summary>
+		private void AddTransactionMade()
+		{
+			var addition = new AddTransactionMadeViewModel();
+
+			if (addition.ShowDialog() == true)
+			{
+
+			}
+		}
 
 		#endregion
-		
+
 		#region Load\Save Project
 
 		/// <summary>
