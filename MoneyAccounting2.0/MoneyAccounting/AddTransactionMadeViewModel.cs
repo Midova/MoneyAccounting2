@@ -9,9 +9,6 @@ namespace MoneyAccounting
 {
 	public class AddTransactionMadeViewModel : INotifyPropertyChanged
 	{
-
-
-
 		public bool ShowDialog()
 		{
 			var view = new AddTransactionMadeView

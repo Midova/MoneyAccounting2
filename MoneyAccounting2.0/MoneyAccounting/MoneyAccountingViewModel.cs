@@ -70,6 +70,7 @@ namespace MoneyAccounting
 		#endregion
 
 		#region Working with Transaction
+
 		/// <summary>
 		/// Получает обработчик добавления соверенной транзакции в список транзакций
 		/// </summary>

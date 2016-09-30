@@ -35,13 +35,13 @@
         <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Comment}" Margin="5"/>
         
         <GroupBox Grid.Column="0" Grid.Row="4" Header="Type Account:" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
                 <RadioButton GroupName="AccountType" Margin="1">Bank</RadioButton>
                 <RadioButton GroupName="AccountType" Margin="1">Cash</RadioButton>  
             </StackPanel>
         </GroupBox>
         
-        <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding IsAddTemlate}" Grid.ColumnSpan="2">Сохранить как шаблон</CheckBox >
+        <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding IsAddTemlate}" Grid.ColumnSpan="2" Margin="4">Сохранить как шаблон</CheckBox >
 
         <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="5" Width="auto">
             <Button >Добавить из шаблона</Button>
