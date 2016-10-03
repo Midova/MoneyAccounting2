@@ -7,22 +7,21 @@ using System.Threading.Tasks;
 
 namespace MoneyAccounting
 {
-	public class AddTransactionMadeViewModel : INotifyPropertyChanged
+	public class AddTransactionMadeViewModel : IEditableObject
 	{
-		public bool ShowDialog()
+		public void BeginEdit()
 		{
-			var view = new AddTransactionMadeView
-			{
-				DataContext = this
-			};
-
-			var result = view.ShowDialog();
-			view.DataContext = null;
-			view = null;
-			return result ?? false;
+			throw new NotImplementedException();
 		}
 
+		public void CancelEdit()
+		{
+			throw new NotImplementedException();
+		}
 
-		public event PropertyChangedEventHandler PropertyChanged;
+		public void EndEdit()
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
