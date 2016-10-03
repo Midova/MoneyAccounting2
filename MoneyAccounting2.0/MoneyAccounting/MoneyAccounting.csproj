@@ -78,6 +78,7 @@
     <Compile Include="Example.cs" />
     <Compile Include="OpenProjectFileService.cs" />
     <Compile Include="SaveProjectFileService.cs" />
+    <Compile Include="ShowDialogWorkTransaction.cs" />
     <Page Include="AddTransactionMadeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
