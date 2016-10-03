@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace MoneyAccounting
 {
-	interface IEditorWindowService
+	public interface IEditorWindowService
 	{
+		void Add(Type editor, Type window);
+
+		bool? ShowDialog(object editValue);
+
 	}
 }

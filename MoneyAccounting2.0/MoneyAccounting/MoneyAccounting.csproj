@@ -76,9 +76,10 @@
     </Compile>
     <Compile Include="AddTransactionMadeViewModel.cs" />
     <Compile Include="Example.cs" />
+    <Compile Include="IEditorWindowService.cs" />
     <Compile Include="OpenProjectFileService.cs" />
     <Compile Include="SaveProjectFileService.cs" />
-    <Compile Include="ShowDialogWorkTransaction.cs" />
+    <Compile Include="EditorWindowService.cs" />
     <Page Include="AddTransactionMadeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

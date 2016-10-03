@@ -83,7 +83,7 @@ namespace MoneyAccounting
 		{
 			var addition = new AddTransactionMadeViewModel();
 
-			if (addition.ShowDialog() == true)
+			if (addition.ShowDialog(AddTransactionMadeView) == true)
 			{
 
 			}

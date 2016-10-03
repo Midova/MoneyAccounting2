@@ -7,21 +7,8 @@ using System.Threading.Tasks;
 
 namespace MoneyAccounting
 {
-	public class AddTransactionMadeViewModel : IEditableObject
+	public class AddTransactionMadeViewModel : EditorWindowService
 	{
-		public void BeginEdit()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void CancelEdit()
-		{
-			throw new NotImplementedException();
-		}
-
-		public void EndEdit()
-		{
-			throw new NotImplementedException();
-		}
+		
 	}
 }
