@@ -71,16 +71,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddTransactionMadeView.xaml.cs">
+    <Compile Include="MoneyAccountingFilterView.xaml.cs">
+      <DependentUpon>MoneyAccountingFilterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MoneyAccountingView.xaml.cs">
+      <DependentUpon>MoneyAccountingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditTransactionMade\AddTransactionMadeView.xaml.cs">
       <DependentUpon>AddTransactionMadeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddTransactionMadeViewModel.cs" />
+    <Compile Include="EditTransactionMade\AddTransactionMadeViewModel.cs" />
     <Compile Include="Example.cs" />
-    <Compile Include="IEditorWindowService.cs" />
-    <Compile Include="OpenProjectFileService.cs" />
-    <Compile Include="SaveProjectFileService.cs" />
-    <Compile Include="EditorWindowService.cs" />
-    <Page Include="AddTransactionMadeView.xaml">
+    <Compile Include="Service\IEditorWindowService.cs" />
+    <Compile Include="Service\OpenProjectFileService.cs" />
+    <Compile Include="Service\SaveProjectFileService.cs" />
+    <Compile Include="Service\EditorWindowService.cs" />
+    <Page Include="MoneyAccountingFilterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MoneyAccountingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditTransactionMade\AddTransactionMadeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditTransactionMade\DeleteTransactionMadeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditTransactionMade\EditTransactionMadeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -92,8 +114,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IOpenProjectFileService.cs" />
-    <Compile Include="ISaveProjectFileService.cs" />
+    <Compile Include="Service\IOpenProjectFileService.cs" />
+    <Compile Include="Service\ISaveProjectFileService.cs" />
+    <Compile Include="EditTransactionMade\DeleteTransactionMadeView.xaml.cs">
+      <DependentUpon>DeleteTransactionMadeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditTransactionMade\EditTransactionMadeView.xaml.cs">
+      <DependentUpon>EditTransactionMadeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -134,6 +162,7 @@
       <Name>TransactionLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

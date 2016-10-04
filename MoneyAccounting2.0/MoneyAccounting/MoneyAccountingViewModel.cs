@@ -14,11 +14,15 @@ namespace MoneyAccounting
 {
 	public class MoneyAccountingViewModel 
 	{
-		
-		public MoneyAccountingViewModel(IOpenProjectFileService fileOpenDialogService, ISaveProjectFileService fileSaveDialogService)
+		public MoneyAccountingViewModel()
+		{ }
+
+		public MoneyAccountingViewModel(IOpenProjectFileService fileOpenDialogService,
+			ISaveProjectFileService fileSaveDialogService, IEditorWindowService editroWindowService)
 		{
 			_FileOpenDialogService = fileOpenDialogService;
 			_FileSaveDialogService = fileSaveDialogService;
+			_EditroWindowService = editroWindowService;
 
 			//создаем и заполняем тестовый кошелк
 			_Purse = Example.ComposePurse();
@@ -43,15 +47,20 @@ namespace MoneyAccounting
 		#region Infrastructure
 		
 		/// <summary>
-		/// поле: открытие файла
+		/// поле: сервис открытие файла
 		/// </summary>
 		private readonly IOpenProjectFileService _FileOpenDialogService;
 		
 		/// <summary>
-		/// поле: сохранение файла
+		/// поле: сервис сохранение файла
 		/// </summary>
 		private readonly ISaveProjectFileService _FileSaveDialogService;
-		
+
+		/// <summary>
+		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
+		/// </summary>
+		private readonly IEditorWindowService _EditroWindowService;
+
 		/// <summary>
 		/// поле: кошелек
 		/// </summary>
@@ -82,10 +91,14 @@ namespace MoneyAccounting
 		private void AddTransactionMade()
 		{
 			var addition = new AddTransactionMadeViewModel();
+			var current = new TransactionMade();
 
-			if (addition.ShowDialog(AddTransactionMadeView) == true)
+			addition.Initialize(current);
+
+			if (_EditroWindowService.ShowDialog(addition) ?? false)
 			{
-
+				current = addition.TransactionMade;
+				_Purse.MadeTransaction.Add(current);
 			}
 		}
 

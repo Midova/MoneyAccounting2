@@ -13,5 +13,21 @@ namespace MoneyAccounting
 	/// </summary>
 	public partial class App : Application
 	{
+		protected override void OnStartup(StartupEventArgs e)
+		{
+			base.OnStartup(e);
+			var mainWindow = new MainWindow();
+			var openFileService = new OpenProjectFileService();
+			var saveFileService = new SaveProjectFileService();
+
+			var windowService = new EditorWindowService();
+			windowService.Add(typeof(AddTransactionMadeViewModel), typeof(AddTransactionMadeView));		
+			
+			var context = new MoneyAccountingViewModel(openFileService, saveFileService, windowService);
+
+			mainWindow.DataContext = context;
+			MainWindow = mainWindow;
+			MainWindow.Show();
+		}
 	}
 }

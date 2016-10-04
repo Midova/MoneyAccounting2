@@ -29,9 +29,7 @@ namespace MoneyAccounting
 
 		private void MainWindow_Loaded(object sender, RoutedEventArgs e)
 		{
-			var openFileService = new OpenProjectFileService();
-			var saveFileService = new SaveProjectFileService();
-			DataContext = new MoneyAccountingViewModel(openFileService, saveFileService);
+			
 		}
 	}
 }
