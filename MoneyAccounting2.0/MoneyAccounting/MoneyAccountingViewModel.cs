@@ -32,30 +32,19 @@ namespace MoneyAccounting
 
 			//создаем оболочку для работы со списком транзакций
 			ItemsTransactionMade = new ListCollectionView(_TransactionMade);
-
-
-
+			
 			AddTransactionMadeCommand = new Command(AddTransactionMade);
 
-
-
-
-
-
-			//выборка транзакций по фильтру.
-			ApplyDataRangeCommand = new Command(ApplyDataRange);
-			//очищаем фильтр.
-			CleareFilterCommand = new Command(CleareFilter);
+			Filter = new MoneyAccountingFilterViewModel();
+			Filter.OnFileterApplyed += Filter_OnFileterApplyed;
+			Filter.OnFilterCleared += Filter_OnFilterCleared;
 
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
-			
-						
-			
 		}
-
-		#region Infrastructure
 		
+		#region Infrastructure
+
 		/// <summary>
 		/// поле: сервис открытие файла
 		/// </summary>
@@ -85,7 +74,7 @@ namespace MoneyAccounting
 		/// Свойство: получает список соверешных транзакций. Это оболочка для работы со списком операций.
 		/// </summary>
 		public ListCollectionView ItemsTransactionMade { get; private set; }
-
+		
 		#endregion
 
 		#region Working with Transaction
@@ -115,70 +104,27 @@ namespace MoneyAccounting
 		#endregion
 
 		#region Filter
-		/// <summary>
-		/// Свойство: Получает или задет начало периода.
-		/// </summary>
-		public DateTime StartDateFilter { get; set; }
 
 		/// <summary>
-		/// Свойство:Получает или задает конец периода.
+		/// Property: Gets filter for cerrent purse.
 		/// </summary>
-		public DateTime EndDateFilter { get; set; }
+		public MoneyAccountingFilterViewModel Filter { get; private set; }
 
 		/// <summary>
-		/// выбранная категория
+		/// Updates filter in transaction collection.
 		/// </summary>
-		public string CategoryFilter { get; set; }
-
-		/// <summary>
-		/// выбранное описание 
-		/// </summary>
-		public string CommentFilter { get; set; }
-
-		/// <summary>
-		/// Метод: подходит ли объект под параметры фильра
-		/// </summary>
-		/// <param name="item">объект- транзакция</param>
-		/// <returns>правда или ложь</returns>
-		public bool DataFilter(object item)
+		private void Filter_OnFilterCleared(object sender, EventArgs e)
 		{
-			var transaction = (TransactionMade)item;
-
-			if (!string.IsNullOrEmpty(CategoryFilter))
-			{
-				if (!string.IsNullOrEmpty(CommentFilter))
-					return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)));
-				else
-					return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter));
-			}
-			else
-			{
-				if (!string.IsNullOrEmpty(CommentFilter))
-					return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)));
-				else
-					return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter));
-			}
-		}
-
-
-		public ICommand CleareFilterCommand { get; private set; }
-
-		private void CleareFilter()
-		{
-			ItemsTransactionMade.Filter = null;			
+			ItemsTransactionMade.Filter = null;
 		}
 
 		/// <summary>
-		/// Свойство: Получает диапазон данных.
+		/// Updates filter in transaction collection.
 		/// </summary>
-		public ICommand ApplyDataRangeCommand { get; private set; }
-
-		/// <summary>
-		/// Метод: Применяет фильтр.
-		/// </summary>
-		private void ApplyDataRange()
+		private void Filter_OnFileterApplyed(object sender, EventArgs e)
 		{
-			ItemsTransactionMade.Filter = DataFilter;
+			ItemsTransactionMade.Filter = Filter.DataFilter;
+			
 		}
 
 		#endregion

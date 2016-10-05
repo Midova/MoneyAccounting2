@@ -83,7 +83,7 @@
         </Menu>
 
         <Expander Grid.Row="1" Header="Filter" HorizontalAlignment="Stretch">            
-            <local:MoneyAccountingFilterView />
+            <local:MoneyAccountingFilterView DataContext="{Binding Filter}" />
         </Expander>
 
         <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding ItemsTransactionMade}" IsReadOnly="True" AutoGenerateColumns="False">
