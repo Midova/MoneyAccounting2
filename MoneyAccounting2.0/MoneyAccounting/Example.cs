@@ -15,6 +15,7 @@ namespace MoneyAccounting
 			
 			result.MadeTransaction.Add(new TransactionMade(3, "категория1"));
 			result.MadeTransaction.Add(new TransactionMade(5, "категория2"));
+			result.MadeTransaction.Add(new TransactionMade(3, "категория2", new DateTime(2016, 04, 01)));
 
 			return result;
 		}

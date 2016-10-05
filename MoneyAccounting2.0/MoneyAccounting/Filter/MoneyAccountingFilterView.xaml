@@ -48,8 +48,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Margin="4">Apply</Button>
-            <Button Grid.Column="2" Margin="4">Clean</Button>
+            <Button Grid.Column="1" Margin="4" Command="{Binding ApplyDataRangeCommand}" >Apply</Button>
+            <Button Grid.Column="2" Margin="4" Command="{Binding CleareFilterCommand}">Clean</Button>
         </Grid>
     </Grid>
 </UserControl>
