@@ -71,9 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MoneyAccountingFilterView.xaml.cs">
+    <Compile Include="Filter\MoneyAccountingFilterView.xaml.cs">
       <DependentUpon>MoneyAccountingFilterView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Filter\MoneyAccountingFilterViewModel.cs" />
     <Compile Include="MoneyAccountingView.xaml.cs">
       <DependentUpon>MoneyAccountingView.xaml</DependentUpon>
     </Compile>
@@ -86,7 +87,7 @@
     <Compile Include="Service\OpenProjectFileService.cs" />
     <Compile Include="Service\SaveProjectFileService.cs" />
     <Compile Include="Service\EditorWindowService.cs" />
-    <Page Include="MoneyAccountingFilterView.xaml">
+    <Page Include="Filter\MoneyAccountingFilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
