@@ -53,15 +53,39 @@ namespace MoneyAccounting
 			}
 		}
 
+		private string _CategoryFilter;
+
 		/// <summary>
 		/// выбранная категория
 		/// </summary>
-		public string CategoryFilter { get; set; }
+		public string CategoryFilter
+		{
+			get { return _CategoryFilter; }
+			set
+			{
+				if (value == _CategoryFilter)
+					return;
+				_CategoryFilter = value;
+				RaisePropertyChanged(nameof(CategoryFilter));
+			}
+		}
+
+		private string _CommentFilter;
 
 		/// <summary>
 		/// выбранное описание 
 		/// </summary>
-		public string CommentFilter { get; set; }
+		public string CommentFilter
+		{
+			get { return _CommentFilter; }
+			set
+			{
+				if (value == _CommentFilter)
+					return;
+				_CommentFilter = value;
+				RaisePropertyChanged(nameof(_CommentFilter));
+			}
+		}
 
 		/// <summary>
 		/// Метод: подходит ли объект под параметры фильра
