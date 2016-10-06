@@ -36,6 +36,7 @@ namespace MoneyAccounting
 			AddTransactionMadeCommand = new Command(AddTransactionMade);
 
 			Filter = new MoneyAccountingFilterViewModel();
+			Filter.PropertyChanged += Filter_PropertyChanged;		
 			Filter.OnFileterApplyed += Filter_OnFileterApplyed;
 			Filter.OnFilterCleared += Filter_OnFilterCleared;
 
@@ -123,8 +124,7 @@ namespace MoneyAccounting
 		/// </summary>
 		private void Filter_OnFileterApplyed(object sender, EventArgs e)
 		{
-			ItemsTransactionMade.Filter = Filter.DataFilter;
-			
+			ItemsTransactionMade.Filter = Filter.DataFilter;			
 		}
 
 		#endregion

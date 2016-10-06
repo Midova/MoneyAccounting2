@@ -18,15 +18,40 @@ namespace MoneyAccounting
 
 		#region Filter
 
+		private DateTime _StartDateFilter;
+
 		/// <summary>
 		/// Свойство: Получает или задет начало периода.
 		/// </summary>
-		public DateTime StartDateFilter { get; set; }
+		public DateTime StartDateFilter
+		{
+			get { return _StartDateFilter; }
+			set
+			{
+				if (value == _StartDateFilter)
+					return;
 
+				_StartDateFilter = value;
+				RaisePropertyChanged(nameof(StartDateFilter));
+			}
+		}
+
+		private DateTime _EndDateFilter;
+		
 		/// <summary>
 		/// Свойство:Получает или задает конец периода.
 		/// </summary>
-		public DateTime EndDateFilter { get; set; }
+		public DateTime EndDateFilter
+		{
+			get { return _EndDateFilter; }
+			set
+			{
+				if (value == _EndDateFilter)
+					return;
+				_EndDateFilter = value;
+				RaisePropertyChanged(nameof(EndDateFilter));
+			}
+		}
 
 		/// <summary>
 		/// выбранная категория
