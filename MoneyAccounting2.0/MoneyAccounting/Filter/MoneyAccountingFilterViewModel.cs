@@ -1,6 +1,7 @@
 ﻿using Catel.Data;
 using Catel.MVVM;
 using System;
+using System.Windows.Data;
 using System.Windows.Input;
 using TransactionLibrary;
 
@@ -8,15 +9,81 @@ namespace MoneyAccounting
 {
 	public class MoneyAccountingFilterViewModel : ObservableObject
 	{
-		public MoneyAccountingFilterViewModel()
+		public MoneyAccountingFilterViewModel(ListCollectionView categorysTransaction)
 		{
+			StartDateFilter = DateTime.Now.AddDays(-30);
+			EndDateFilter = DateTime.Now;
+			_TypeAccountFilter = TypeFilter.All;
+			
+
 			//выборка транзакций по фильтру.
 			ApplyDataRangeCommand = new Command(ApplyDataRange);
 			//очищаем фильтр.
 			CleareFilterCommand = new Command(CleareFilter);
+
+			TextInpunt = new Command(CommentFilterEvent);
+
+
+			CategorysFilter = categorysTransaction;
 		}
 
 		#region Filter
+
+		public enum TypeFilter
+		{
+			All,
+			Bank,
+			Cash
+		}
+
+		private TypeFilter _TypeAccountFilter = TypeFilter.All;
+
+		private AccountType _AccountType
+		{
+			get
+			{
+				if (IsTypeBank)
+					return AccountType.Bank;
+				return AccountType.Cash;
+			}
+		}
+
+		public TypeFilter TypeAccountFilter
+		{
+			get { return _TypeAccountFilter; }
+			set
+			{
+				if (value == _TypeAccountFilter)
+					return;
+				_TypeAccountFilter = value;
+				RaisePropertyChanged(nameof(_TypeAccountFilter));
+				RaisePropertyChanged(nameof(IsTypeAll));
+				RaisePropertyChanged(nameof(IsTypeBank));
+				RaisePropertyChanged(nameof(IsTypeCash));
+
+			}
+		}
+
+		public bool IsTypeAll
+		{
+			get { return _TypeAccountFilter == TypeFilter.All; }
+			set { _TypeAccountFilter = value ? TypeFilter.All : _TypeAccountFilter; }
+		}
+			
+
+		public bool IsTypeBank
+		{
+			get { return _TypeAccountFilter == TypeFilter.All; }
+			set { _TypeAccountFilter = value ? TypeFilter.All : _TypeAccountFilter; }
+		}
+
+		public bool IsTypeCash
+		{
+			get { return _TypeAccountFilter == TypeFilter.All; }
+			set { _TypeAccountFilter = value ? TypeFilter.All : _TypeAccountFilter; }
+		}
+
+
 
 		private DateTime _StartDateFilter;
 
@@ -33,6 +100,7 @@ namespace MoneyAccounting
 
 				_StartDateFilter = value;
 				RaisePropertyChanged(nameof(StartDateFilter));
+
 			}
 		}
 
@@ -52,26 +120,14 @@ namespace MoneyAccounting
 				RaisePropertyChanged(nameof(EndDateFilter));
 			}
 		}
-
-		private string _CategoryFilter;
-
+		
 		/// <summary>
 		/// выбранная категория
 		/// </summary>
-		public string CategoryFilter
-		{
-			get { return _CategoryFilter; }
-			set
-			{
-				if (value == _CategoryFilter)
-					return;
-				_CategoryFilter = value;
-				RaisePropertyChanged(nameof(CategoryFilter));
-			}
-		}
+		public ListCollectionView CategorysFilter { get; set; }
 
 		private string _CommentFilter;
-
+		
 		/// <summary>
 		/// выбранное описание 
 		/// </summary>
@@ -95,24 +151,59 @@ namespace MoneyAccounting
 		public bool DataFilter(object item)
 		{
 			var transaction = (TransactionMade)item;
+			var CategoryFilter = (string)CategorysFilter.CurrentItem;
 
-			if (!string.IsNullOrEmpty(CategoryFilter))
+			if (IsTypeAll)
 			{
-				if (!string.IsNullOrEmpty(CommentFilter))
-					return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)));
+				if (!string.IsNullOrEmpty(CategoryFilter))
+				{
+					if (!string.IsNullOrEmpty(CommentFilter))
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)));
+					else
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter));
+				}
 				else
-					return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter));
+				{
+					if (!string.IsNullOrEmpty(CommentFilter))
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)));
+					else
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter));
+				}
 			}
 			else
 			{
-				if (!string.IsNullOrEmpty(CommentFilter))
-					return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)));
+				if (!string.IsNullOrEmpty(CategoryFilter))
+				{
+					if (!string.IsNullOrEmpty(CommentFilter))
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == _AccountType));
+					else
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.KindAccount == _AccountType));
+				}
 				else
-					return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter));
+				{
+					if (!string.IsNullOrEmpty(CommentFilter))
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == _AccountType));
+					else
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.KindAccount == _AccountType));
+				}
 			}
+			
+
+			
 		}
 
 
+		public ICommand TextInpunt { get; private set; }
+
+		public event EventHandler TextInputEvent;
+
+		private void CommentFilterEvent()
+		{
+			var handler = TextInputEvent;
+			if (handler != null)
+				TextInputEvent(this, new EventArgs());
+		}
+		
 		public ICommand CleareFilterCommand { get; private set; }
 
 		public event EventHandler OnFilterCleared;
@@ -128,7 +219,7 @@ namespace MoneyAccounting
 		/// Свойство: Получает диапазон данных.
 		/// </summary>
 		public ICommand ApplyDataRangeCommand { get; private set; }
-
+				
 		public event EventHandler OnFileterApplyed;
 
 		/// <summary>

@@ -9,6 +9,7 @@ using TransactionLibrary;
 using Catel.MVVM;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using System.ComponentModel;
 
 namespace MoneyAccounting
 {
@@ -32,10 +33,19 @@ namespace MoneyAccounting
 
 			//создаем оболочку для работы со списком транзакций
 			ItemsTransactionMade = new ListCollectionView(_TransactionMade);
+
+			FillingCategoryList();
+			CategorysTransaction = new ListCollectionView(_CategorysTransaction);
 			
 			AddTransactionMadeCommand = new Command(AddTransactionMade);
 
-			Filter = new MoneyAccountingFilterViewModel();
+			Filter = new MoneyAccountingFilterViewModel(CategorysTransaction);
+
+			//выбор категории
+			Filter.CategorysFilter.CurrentChanged += CategorysFilter_CurrentChanged;
+
+			Filter.TextInputEvent += Filter_TextInputEvent;
+
 			Filter.PropertyChanged += Filter_PropertyChanged;		
 			Filter.OnFileterApplyed += Filter_OnFileterApplyed;
 			Filter.OnFilterCleared += Filter_OnFilterCleared;
@@ -43,7 +53,15 @@ namespace MoneyAccounting
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
 		}
-		
+
+		private void Filter_TextInputEvent(object sender, EventArgs e)
+		{
+			ItemsTransactionMade.Filter = Filter.DataFilter;
+		}
+
+
+
+
 		#region Infrastructure
 
 		/// <summary>
@@ -75,7 +93,33 @@ namespace MoneyAccounting
 		/// Свойство: получает список соверешных транзакций. Это оболочка для работы со списком операций.
 		/// </summary>
 		public ListCollectionView ItemsTransactionMade { get; private set; }
-		
+
+
+		/// <summary>
+		/// список категорий операций
+		/// </summary>
+		private List<string> _CategorysTransaction;
+
+		/// <summary>
+		/// получает список категорий операций
+		/// </summary>
+		public ListCollectionView CategorysTransaction { get; private set; }
+
+
+		/// <summary>
+		/// Заполняет список категорий
+		/// </summary>
+		private void FillingCategoryList()
+		{
+			_CategorysTransaction = new List<string>();
+			_CategorysTransaction.Add(string.Empty);
+
+			foreach (var item in _TransactionMade)
+				_CategorysTransaction.Add(item.Category);
+
+			_CategorysTransaction = _CategorysTransaction.Distinct().ToList();
+		}
+
 		#endregion
 
 		#region Working with Transaction
@@ -106,10 +150,22 @@ namespace MoneyAccounting
 
 		#region Filter
 
+				
 		/// <summary>
 		/// Property: Gets filter for cerrent purse.
 		/// </summary>
 		public MoneyAccountingFilterViewModel Filter { get; private set; }
+
+		private void Filter_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			ItemsTransactionMade.Filter = Filter.DataFilter;
+		}
+
+		private void CategorysFilter_CurrentChanged(object sender, EventArgs e)
+		{
+			ItemsTransactionMade.Filter = Filter.DataFilter;
+		}
+
 
 		/// <summary>
 		/// Updates filter in transaction collection.
