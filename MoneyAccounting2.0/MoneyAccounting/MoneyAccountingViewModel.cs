@@ -43,25 +43,17 @@ namespace MoneyAccounting
 
 			//выбор категории
 			Filter.CategorysFilter.CurrentChanged += CategorysFilter_CurrentChanged;
-
-			Filter.TextInputEvent += Filter_TextInputEvent;
-
 			Filter.PropertyChanged += Filter_PropertyChanged;		
-			Filter.OnFileterApplyed += Filter_OnFileterApplyed;
-			Filter.OnFilterCleared += Filter_OnFilterCleared;
 
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
 		}
 
-		private void Filter_TextInputEvent(object sender, EventArgs e)
+		private void Filter_OnChoiceTypeAccount(object sender, EventArgs e)
 		{
 			ItemsTransactionMade.Filter = Filter.DataFilter;
 		}
-
-
-
-
+		
 		#region Infrastructure
 
 		/// <summary>
@@ -149,8 +141,7 @@ namespace MoneyAccounting
 		#endregion
 
 		#region Filter
-
-				
+		
 		/// <summary>
 		/// Property: Gets filter for cerrent purse.
 		/// </summary>
@@ -158,6 +149,9 @@ namespace MoneyAccounting
 
 		private void Filter_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			//if (e.PropertyName == "IsTypeAll" || e.PropertyName == "IsTypeBank" || e.PropertyName == "IsTypeBank")
+			//	ItemsTransactionMade.Filter = Filter.DataFilter;
+
 			ItemsTransactionMade.Filter = Filter.DataFilter;
 		}
 
@@ -166,22 +160,6 @@ namespace MoneyAccounting
 			ItemsTransactionMade.Filter = Filter.DataFilter;
 		}
 
-
-		/// <summary>
-		/// Updates filter in transaction collection.
-		/// </summary>
-		private void Filter_OnFilterCleared(object sender, EventArgs e)
-		{
-			ItemsTransactionMade.Filter = null;
-		}
-
-		/// <summary>
-		/// Updates filter in transaction collection.
-		/// </summary>
-		private void Filter_OnFileterApplyed(object sender, EventArgs e)
-		{
-			ItemsTransactionMade.Filter = Filter.DataFilter;			
-		}
 
 		#endregion
 

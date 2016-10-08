@@ -21,13 +21,13 @@ namespace MoneyAccounting
 			//очищаем фильтр.
 			CleareFilterCommand = new Command(CleareFilter);
 
-			TextInpunt = new Command(CommentFilterEvent);
-
-
+			
 			CategorysFilter = categorysTransaction;
 		}
 
 		#region Filter
+
+		#region radiobutton
 
 		public enum TypeFilter
 		{
@@ -38,52 +38,49 @@ namespace MoneyAccounting
 
 		private TypeFilter _TypeAccountFilter = TypeFilter.All;
 
-		private AccountType _AccountType
+		public AccountType AccountTypeFilter
 		{
 			get
 			{
-				if (IsTypeBank)
-					return AccountType.Bank;
+				if (IsTypeBank)					
+					return AccountType.Bank;										
 				return AccountType.Cash;
-			}
-		}
-
-		public TypeFilter TypeAccountFilter
-		{
-			get { return _TypeAccountFilter; }
-			set
-			{
-				if (value == _TypeAccountFilter)
-					return;
-				_TypeAccountFilter = value;
-				RaisePropertyChanged(nameof(_TypeAccountFilter));
-				RaisePropertyChanged(nameof(IsTypeAll));
-				RaisePropertyChanged(nameof(IsTypeBank));
-				RaisePropertyChanged(nameof(IsTypeCash));
-
-			}
-		}
+			}			
+		}		
 
 		public bool IsTypeAll
 		{
 			get { return _TypeAccountFilter == TypeFilter.All; }
-			set { _TypeAccountFilter = value ? TypeFilter.All : _TypeAccountFilter; }
+			set
+			{
+				_TypeAccountFilter = value ? TypeFilter.All : _TypeAccountFilter;
+				RaisePropertyChanged(nameof(IsTypeAll));
+			}
 		}
-			
-
+		
 		public bool IsTypeBank
 		{
-			get { return _TypeAccountFilter == TypeFilter.All; }
-			set { _TypeAccountFilter = value ? TypeFilter.All : _TypeAccountFilter; }
+			get { return _TypeAccountFilter == TypeFilter.Bank; }
+			set
+			{
+				_TypeAccountFilter = value ? TypeFilter.Bank : _TypeAccountFilter;
+				RaisePropertyChanged(nameof(IsTypeBank));
+			}
 		}
 
 		public bool IsTypeCash
 		{
-			get { return _TypeAccountFilter == TypeFilter.All; }
-			set { _TypeAccountFilter = value ? TypeFilter.All : _TypeAccountFilter; }
+			get { return _TypeAccountFilter == TypeFilter.Cash; }			
+			set
+			{
+				_TypeAccountFilter = value ? TypeFilter.Cash : _TypeAccountFilter;
+				RaisePropertyChanged(nameof(IsTypeCash));
+			}
 		}
 
+		#endregion
 
+		#region Infrastructure
 
 		private DateTime _StartDateFilter;
 
@@ -97,10 +94,8 @@ namespace MoneyAccounting
 			{
 				if (value == _StartDateFilter)
 					return;
-
 				_StartDateFilter = value;
 				RaisePropertyChanged(nameof(StartDateFilter));
-
 			}
 		}
 
@@ -139,8 +134,36 @@ namespace MoneyAccounting
 				if (value == _CommentFilter)
 					return;
 				_CommentFilter = value;
-				RaisePropertyChanged(nameof(_CommentFilter));
+				RaisePropertyChanged(nameof(CommentFilter));
 			}
+		}
+		
+		public class Filter
+		{
+			public Predicate<object> FilterRule { get; set; }
+		}
+
+		public bool GetFilter(object item)
+		{
+			return FilterByCategory(item) && FilterByPeriod(item)...
+		}
+
+		private bool FilterByPeriod(object item)
+		{
+			if ((StartDateFilter > EndDateFilter) || (StartDateFilter == DateTime.MinValue && EndDateFilter == DateTime.MinValue))
+				return true;
+			
+			throw new NotImplementedException();
+		}
+
+		private bool FilterByCategory(object item)
+		{
+			var currentCategoryString = (string) CategorysFilter.CurrentItem;
+			if (string.IsNullOrWhiteSpace(currentCategoryString))
+				return true;
+
+			var transaction = (TransactionMade) item;
+			return transaction.Category.Contains(currentCategoryString);			
 		}
 
 		/// <summary>
@@ -175,62 +198,46 @@ namespace MoneyAccounting
 				if (!string.IsNullOrEmpty(CategoryFilter))
 				{
 					if (!string.IsNullOrEmpty(CommentFilter))
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == _AccountType));
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == AccountTypeFilter));
 					else
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.KindAccount == _AccountType));
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.KindAccount == AccountTypeFilter));
 				}
 				else
 				{
 					if (!string.IsNullOrEmpty(CommentFilter))
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == _AccountType));
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == AccountTypeFilter));
 					else
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.KindAccount == _AccountType));
+						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.KindAccount == AccountTypeFilter));
 				}
-			}
-			
-
-			
+			}			
 		}
 
+		#endregion
 
-		public ICommand TextInpunt { get; private set; }
+		#region Events
 
-		public event EventHandler TextInputEvent;
-
-		private void CommentFilterEvent()
-		{
-			var handler = TextInputEvent;
-			if (handler != null)
-				TextInputEvent(this, new EventArgs());
-		}
-		
 		public ICommand CleareFilterCommand { get; private set; }
-
-		public event EventHandler OnFilterCleared;
-
+		
 		private void CleareFilter()
 		{
-			var handler = OnFilterCleared;
-			if (handler != null)
-				OnFilterCleared(this, new EventArgs());
+
 		}
 
 		/// <summary>
 		/// Свойство: Получает диапазон данных.
 		/// </summary>
 		public ICommand ApplyDataRangeCommand { get; private set; }
-				
-		public event EventHandler OnFileterApplyed;
+
+		public event EventHandler<Filter> OnFilterApplyed;
 
 		/// <summary>
 		/// Метод: Применяет фильтр.
 		/// </summary>
 		private void ApplyDataRange()
 		{
-			var handler = OnFileterApplyed;
-			if (handler != null)
-				OnFileterApplyed(this, new EventArgs());
+
 		}
+		#endregion
 
 		#endregion
 	}

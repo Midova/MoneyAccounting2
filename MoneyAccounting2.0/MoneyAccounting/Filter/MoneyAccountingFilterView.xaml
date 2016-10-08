@@ -40,7 +40,7 @@
         <ComboBox Grid.Row="1" Grid.Column="1" Margin="1" VerticalAlignment="Top" ItemsSource="{Binding CategorysFilter}" />
                 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Comment"/>
-        <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="1"  Text="{Binding CommentFilter }"/>
+        <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="1"  Text="{Binding CommentFilter, UpdateSourceTrigger=PropertyChanged}"/>
                                 
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" >
             <Grid.ColumnDefinitions>
