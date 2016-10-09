@@ -145,7 +145,7 @@ namespace MoneyAccounting
 			var addition = new AddTransactionMadeViewModel();
 			var current = new TransactionMade();
 
-			addition.Initialize(current);
+			addition.Initialize(current, CategorysTransaction);
 
 			if (_EditroWindowService.ShowDialog(addition) ?? false)
 			{

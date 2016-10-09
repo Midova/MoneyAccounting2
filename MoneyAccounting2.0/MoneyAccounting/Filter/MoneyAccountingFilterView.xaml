@@ -37,7 +37,7 @@
         </GroupBox>
                 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Category" VerticalAlignment="Stretch"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" Margin="1" VerticalAlignment="Top" ItemsSource="{Binding CategorysFilter}" />
+        <ComboBox Grid.Row="1" Grid.Column="1" Margin="1" VerticalAlignment="Top" ItemsSource="{Binding CategorysTransaction}" />
                 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Comment"/>
         <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Margin="1"  Text="{Binding CommentFilter, UpdateSourceTrigger=PropertyChanged}"/>
