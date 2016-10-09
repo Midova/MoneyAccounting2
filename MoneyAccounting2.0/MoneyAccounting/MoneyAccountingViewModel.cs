@@ -34,6 +34,9 @@ namespace MoneyAccounting
 			//создаем оболочку для работы со списком транзакций
 			ItemsTransactionMade = new ListCollectionView(_TransactionMade);
 
+			_TransactionMade.CollectionChanged += _TransactionMade_CollectionChanged;
+
+
 			FillingCategoryList();
 			CategorysTransaction = new ListCollectionView(_CategorysTransaction);
 			
@@ -43,15 +46,28 @@ namespace MoneyAccounting
 
 			//выбор категории
 			Filter.CategorysFilter.CurrentChanged += CategorysFilter_CurrentChanged;
-			Filter.PropertyChanged += Filter_PropertyChanged;		
+			Filter.PropertyChanged += Filter_PropertyChanged;
+			Filter.OnFilterApplyed += Filter_OnFilterApplyed;	
 
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
 		}
 
+		private void _TransactionMade_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			FillingCategoryList();
+			CategorysTransaction = new ListCollectionView(_CategorysTransaction);
+		}
+
+		private void Filter_OnFilterApplyed(object sender, MoneyAccountingFilterViewModel.Filter e)
+		{			
+			ItemsTransactionMade.Filter = e.FilterRule;
+			throw new NotImplementedException();
+		}
+
 		private void Filter_OnChoiceTypeAccount(object sender, EventArgs e)
 		{
-			ItemsTransactionMade.Filter = Filter.DataFilter;
+			ItemsTransactionMade.Filter = Filter.GetFilter;
 		}
 		
 		#region Infrastructure
@@ -152,12 +168,12 @@ namespace MoneyAccounting
 			//if (e.PropertyName == "IsTypeAll" || e.PropertyName == "IsTypeBank" || e.PropertyName == "IsTypeBank")
 			//	ItemsTransactionMade.Filter = Filter.DataFilter;
 
-			ItemsTransactionMade.Filter = Filter.DataFilter;
+			ItemsTransactionMade.Filter = Filter.GetFilter;
 		}
 
 		private void CategorysFilter_CurrentChanged(object sender, EventArgs e)
 		{
-			ItemsTransactionMade.Filter = Filter.DataFilter;
+			ItemsTransactionMade.Filter = Filter.GetFilter;
 		}
 
 

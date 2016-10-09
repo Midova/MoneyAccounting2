@@ -12,9 +12,8 @@ namespace MoneyAccounting
 		public MoneyAccountingFilterViewModel(ListCollectionView categorysTransaction)
 		{
 			StartDateFilter = DateTime.Now.AddDays(-30);
-			EndDateFilter = DateTime.Now;
-			_TypeAccountFilter = TypeFilter.All;
-			
+			EndDateFilter = DateTime.Now.AddDays(1);
+			_TypeAccountFilter = TypeFilter.All;			
 
 			//выборка транзакций по фильтру.
 			ApplyDataRangeCommand = new Command(ApplyDataRange);
@@ -115,11 +114,7 @@ namespace MoneyAccounting
 				RaisePropertyChanged(nameof(EndDateFilter));
 			}
 		}
-		
-		/// <summary>
-		/// выбранная категория
-		/// </summary>
-		public ListCollectionView CategorysFilter { get; set; }
+				
 
 		private string _CommentFilter;
 		
@@ -137,25 +132,82 @@ namespace MoneyAccounting
 				RaisePropertyChanged(nameof(CommentFilter));
 			}
 		}
-		
+
+		/// <summary>
+		/// список категорий для выбора
+		/// </summary>
+		public ListCollectionView CategorysFilter { get; set; }
+
+		/// <summary>
+		/// Что это???
+		/// </summary>
 		public class Filter
 		{
 			public Predicate<object> FilterRule { get; set; }
 		}
 
+		/// <summary>
+		/// Метод: подходит ли объект под параметры фильра.
+		/// </summary>
+		/// <param name="item">объект- транзакция</param>
+		/// <returns>правда или ложь</returns>
 		public bool GetFilter(object item)
 		{
-			return FilterByCategory(item) && FilterByPeriod(item)...
+			return FilterByCategory(item) && FilterByPeriod(item) && FilterByComment(item) && FilterByType(item);
 		}
 
+		/// <summary>
+		/// Метод: подходит ли тип счета транзакции.
+		/// </summary>
+		/// <param name="item">объект- транзакция</param>
+		/// <returns>правда или ложь</returns>
+		private bool FilterByType(object item)
+		{
+			if (IsTypeAll)
+				return true;
+
+			var transaction = (TransactionMade)item;
+			if (transaction.KindAccount == AccountTypeFilter)
+				return true;
+
+			return false;
+		}
+
+		/// <summary>
+		/// Метод: подходит ли коментарий транзакции.
+		/// </summary>
+		/// <param name="item">объект- транзакция</param>
+		/// <returns>правда или ложь</returns>
+		private bool FilterByComment(object item)
+		{
+			if (string.IsNullOrWhiteSpace(CommentFilter))
+				return true;
+
+			var transaction = (TransactionMade)item;
+			return transaction.Comment.Contains(CommentFilter);
+		}
+
+		/// <summary>
+		/// Метод: подходит ли период транзакции.
+		/// </summary>
+		/// <param name="item">объект- транзакция</param>
+		/// <returns>правда или ложь</returns>
 		private bool FilterByPeriod(object item)
 		{
 			if ((StartDateFilter > EndDateFilter) || (StartDateFilter == DateTime.MinValue && EndDateFilter == DateTime.MinValue))
+				return true;	
+					
+			var transaction = (TransactionMade) item;
+			if (transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter)
 				return true;
-			
-			throw new NotImplementedException();
+			return false;
 		}
 
+		/// <summary>
+		/// Метод: подходит ли категория транзакции.
+		/// </summary>
+		/// <param name="item">объект- транзакция</param>
+		/// <returns>правда или ложь</returns>
 		private bool FilterByCategory(object item)
 		{
 			var currentCategoryString = (string) CategorysFilter.CurrentItem;
@@ -171,46 +223,46 @@ namespace MoneyAccounting
 		/// </summary>
 		/// <param name="item">объект- транзакция</param>
 		/// <returns>правда или ложь</returns>
-		public bool DataFilter(object item)
-		{
-			var transaction = (TransactionMade)item;
-			var CategoryFilter = (string)CategorysFilter.CurrentItem;
+		//public bool DataFilter(object item)
+		//{
+		//	var transaction = (TransactionMade)item;
+		//	var CategoryFilter = (string)CategorysFilter.CurrentItem;
 
-			if (IsTypeAll)
-			{
-				if (!string.IsNullOrEmpty(CategoryFilter))
-				{
-					if (!string.IsNullOrEmpty(CommentFilter))
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)));
-					else
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter));
-				}
-				else
-				{
-					if (!string.IsNullOrEmpty(CommentFilter))
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)));
-					else
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter));
-				}
-			}
-			else
-			{
-				if (!string.IsNullOrEmpty(CategoryFilter))
-				{
-					if (!string.IsNullOrEmpty(CommentFilter))
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == AccountTypeFilter));
-					else
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.KindAccount == AccountTypeFilter));
-				}
-				else
-				{
-					if (!string.IsNullOrEmpty(CommentFilter))
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == AccountTypeFilter));
-					else
-						return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.KindAccount == AccountTypeFilter));
-				}
-			}			
-		}
+		//	if (IsTypeAll)
+		//	{
+		//		if (!string.IsNullOrEmpty(CategoryFilter))
+		//		{
+		//			if (!string.IsNullOrEmpty(CommentFilter))
+		//				return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)));
+		//			else
+		//				return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter));
+		//		}
+		//		else
+		//		{
+		//			if (!string.IsNullOrEmpty(CommentFilter))
+		//				return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)));
+		//			else
+		//				return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter));
+		//		}
+		//	}
+		//	else
+		//	{
+		//		if (!string.IsNullOrEmpty(CategoryFilter))
+		//		{
+		//			if (!string.IsNullOrEmpty(CommentFilter))
+		//				return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == AccountTypeFilter));
+		//			else
+		//				return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Category == CategoryFilter) && (transaction.KindAccount == AccountTypeFilter));
+		//		}
+		//		else
+		//		{
+		//			if (!string.IsNullOrEmpty(CommentFilter))
+		//				return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.Comment.Contains(CommentFilter)) && (transaction.KindAccount == AccountTypeFilter));
+		//			else
+		//				return ((transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter) && (transaction.KindAccount == AccountTypeFilter));
+		//		}
+		//	}			
+		//}
 
 		#endregion
 
@@ -230,12 +282,15 @@ namespace MoneyAccounting
 
 		public event EventHandler<Filter> OnFilterApplyed;
 
+		public event EventHandler On1FilterApplyed;
+
 		/// <summary>
 		/// Метод: Применяет фильтр.
 		/// </summary>
 		private void ApplyDataRange()
 		{
-
+			On1FilterApplyed(this, new EventArgs());
+			OnFilterApplyed(this, new Filter { FilterRule = FilterByCategory });
 		}
 		#endregion
 

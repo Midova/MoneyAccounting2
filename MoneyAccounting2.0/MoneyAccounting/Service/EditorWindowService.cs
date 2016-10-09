@@ -20,7 +20,7 @@ namespace MoneyAccounting
 		}
 
 		/// <summary>
-		/// словарь привязка редактор к окну
+		/// словарь привязка редактор к окну.
 		/// </summary>
 		private readonly Dictionary<Type, Type> _EditorWindows;
 
