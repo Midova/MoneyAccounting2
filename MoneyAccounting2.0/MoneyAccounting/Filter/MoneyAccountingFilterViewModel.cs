@@ -19,7 +19,6 @@ namespace MoneyAccounting
 			ApplyDataRangeCommand = new Command(ApplyDataRange);
 			//очищаем фильтр.
 			CleareFilterCommand = new Command(CleareFilter);
-
 			
 			CategorysFilter = categorysTransaction;
 		}
@@ -35,7 +34,7 @@ namespace MoneyAccounting
 			Cash
 		}
 
-		private TypeFilter _TypeAccountFilter = TypeFilter.All;
+		private TypeFilter _TypeAccountFilter;
 
 		public AccountType AccountTypeFilter
 		{
@@ -114,8 +113,7 @@ namespace MoneyAccounting
 				RaisePropertyChanged(nameof(EndDateFilter));
 			}
 		}
-				
-
+		
 		private string _CommentFilter;
 		
 		/// <summary>
@@ -139,7 +137,7 @@ namespace MoneyAccounting
 		public ListCollectionView CategorysFilter { get; set; }
 
 		/// <summary>
-		/// Что это???
+		/// Что это???вложенный класс для передачи в качестве аргумента в собите OnFilterApplyed
 		/// </summary>
 		public class Filter
 		{
@@ -200,6 +198,7 @@ namespace MoneyAccounting
 			var transaction = (TransactionMade) item;
 			if (transaction.DateTime <= EndDateFilter && transaction.DateTime >= StartDateFilter)
 				return true;
+
 			return false;
 		}
 
@@ -272,7 +271,8 @@ namespace MoneyAccounting
 		
 		private void CleareFilter()
 		{
-
+			// reset filter properties
+			RaiseFilterChanged();
 		}
 
 		/// <summary>
@@ -280,18 +280,27 @@ namespace MoneyAccounting
 		/// </summary>
 		public ICommand ApplyDataRangeCommand { get; private set; }
 
-		public event EventHandler<Filter> OnFilterApplyed;
-
-		public event EventHandler On1FilterApplyed;
+		public event EventHandler<Filter> OnFilterChanged;
 
 		/// <summary>
 		/// Метод: Применяет фильтр.
 		/// </summary>
 		private void ApplyDataRange()
 		{
-			On1FilterApplyed(this, new EventArgs());
-			OnFilterApplyed(this, new Filter { FilterRule = FilterByCategory });
+
+			RaiseFilterChanged();
 		}
+
+		/// <summary>
+		/// Raises filter changed event.
+		/// </summary>
+		private void RaiseFilterChanged()
+		{
+			var handler = OnFilterChanged;
+			if (handler != null)
+				OnFilterChanged(this, new Filter { FilterRule = FilterByCategory });
+		}
+
 		#endregion
 
 		#endregion

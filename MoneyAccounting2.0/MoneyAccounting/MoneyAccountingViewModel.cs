@@ -47,7 +47,7 @@ namespace MoneyAccounting
 			//выбор категории
 			Filter.CategorysFilter.CurrentChanged += CategorysFilter_CurrentChanged;
 			Filter.PropertyChanged += Filter_PropertyChanged;
-			Filter.OnFilterApplyed += Filter_OnFilterApplyed;	
+			Filter.OnFilterChanged += Filter_OnFilterApplyed;	
 
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
@@ -195,6 +195,5 @@ namespace MoneyAccounting
 		}
 
 		#endregion
-
 	}
 }
