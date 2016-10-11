@@ -12,11 +12,11 @@ namespace MoneyAccounting
 {
 	public class AddTransactionMadeViewModel 
 	{
-		public void Initialize(TransactionMade transaction, ListCollectionView categorysTransaction)
+		public void Initialize(ObservableCollection<TransactionMade> templateTransacrion, List<string> categorysTransaction)
 		{
-			TransactionMade = new TransactionMade(transaction.Amount, transaction.Category, transaction.DateTime, transaction.Comment, transaction.KindAccount);
-			//TemplateTransacrion = templateTransacrion;
-			CategorysTransaction = categorysTransaction;
+			TransactionMade = new TransactionMade();
+			TemplateTransacrion = templateTransacrion;
+			CategorysTransaction = new ListCollectionView(categorysTransaction);
 		}
 
 		public TransactionMade TransactionMade { get;  set; }

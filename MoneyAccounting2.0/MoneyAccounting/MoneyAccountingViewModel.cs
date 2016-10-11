@@ -10,6 +10,7 @@ using Catel.MVVM;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.ComponentModel;
+using MoneyAccounting.EditTransactionMade;
 
 namespace MoneyAccounting
 {
@@ -41,6 +42,7 @@ namespace MoneyAccounting
 			CategorysTransaction = new ListCollectionView(_CategorysTransaction);
 			
 			AddTransactionMadeCommand = new Command(AddTransactionMade);
+			EditTransactionMadeCommand = new Command(EditTransactionMade);
 
 			Filter = new MoneyAccountingFilterViewModel(CategorysTransaction);
 
@@ -113,6 +115,8 @@ namespace MoneyAccounting
 		/// </summary>
 		public ListCollectionView CategorysTransaction { get; private set; }
 
+		public ObservableCollection<TransactionMade> TemplateTransacrion { get; set; }
+
 
 		/// <summary>
 		/// Заполняет список категорий
@@ -143,21 +147,37 @@ namespace MoneyAccounting
 		private void AddTransactionMade()
 		{
 			var addition = new AddTransactionMadeViewModel();
-			var current = new TransactionMade();
+			
 
-			addition.Initialize(current, CategorysTransaction);
+			addition.Initialize(TemplateTransacrion, _CategorysTransaction);
 
 			if (_EditroWindowService.ShowDialog(addition) ?? false)
 			{
-				current = addition.TransactionMade;
+				var current = new TransactionMade(addition.TransactionMade.Amount, (string)addition.CategorysTransaction.CurrentItem,addition.TransactionMade.DateTime,addition.TransactionMade.Comment);
+
 				_Purse.MadeTransaction.Add(current);
+			}
+		}
+
+		public ICommand EditTransactionMadeCommand { get; private set; }
+
+		private void EditTransactionMade()
+		{
+			var editor = new EditTransactionMadeViewModel();
+			var current = (TransactionMade)ItemsTransactionMade.CurrentItem;
+
+			editor.Initialize(current, _CategorysTransaction);
+
+			if (_EditroWindowService.ShowDialog(editor) ?? false)
+			{
+
 			}
 		}
 
 		#endregion
 
 		#region Filter
-		
+
 		/// <summary>
 		/// Property: Gets filter for cerrent purse.
 		/// </summary>

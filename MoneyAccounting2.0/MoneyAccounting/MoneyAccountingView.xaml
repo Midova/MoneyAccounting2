@@ -45,7 +45,7 @@
                 <MenuItem Header="Add" Command="{Binding AddTransactionMadeCommand}">
                     
                 </MenuItem>
-                <MenuItem Header="Edit">
+                <MenuItem Header="Edit" Command="{Binding EditTransactionMadeCommand}">
                     
                 </MenuItem>
                 <Separator/>

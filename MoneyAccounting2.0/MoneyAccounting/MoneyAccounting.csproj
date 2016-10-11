@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EditTransactionMade\EditTransactionMadeViewModel.cs" />
     <Compile Include="Filter\MoneyAccountingFilterView.xaml.cs">
       <DependentUpon>MoneyAccountingFilterView.xaml</DependentUpon>
     </Compile>
