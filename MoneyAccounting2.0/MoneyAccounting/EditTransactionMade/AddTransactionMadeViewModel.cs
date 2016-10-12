@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Catel.Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using TransactionLibrary;
 
 namespace MoneyAccounting
 {
-	public class AddTransactionMadeViewModel 
+	public class AddTransactionMadeViewModel : ObservableObject
 	{
 		public void Initialize(ObservableCollection<TransactionMade> templateTransacrion, List<string> categorysTransaction)
 		{
@@ -19,13 +20,51 @@ namespace MoneyAccounting
 			CategorysTransaction = new ListCollectionView(categorysTransaction);
 		}
 
-		public TransactionMade TransactionMade { get;  set; }
+		/// <summary>
+		/// 
+		/// </summary>
+		private bool _IsAddTemlate;
 
-		public bool IsAddTemlate { get; set; }
+		private AccountType _TypeAccountFilter;
 
-		public ObservableCollection<TransactionMade> TemplateTransacrion { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsTypeBank
+		{
+			get {return _TypeAccountFilter == AccountType.Bank; }
+			set
+			{
+				_TypeAccountFilter = value ? AccountType.Bank : _TypeAccountFilter;
+				RaisePropertyChanged(nameof(IsTypeBank));
+			}
+		}
 
-		public ListCollectionView CategorysTransaction { get; set; }
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsTypeCash
+		{
+			get { return _TypeAccountFilter == AccountType.Cash; }
+			set
+			{
+				_TypeAccountFilter = value ? AccountType.Cash : _TypeAccountFilter;
+				RaisePropertyChanged(nameof(IsTypeCash));
+			}
+		}
+
+		public AccountType AccountTyp()
+		{			
+				if (IsTypeBank)
+					return AccountType.Bank;
+				return AccountType.Cash;		
+		}
+
+		public TransactionMade TransactionMade { get; private set; }		
+
+		public ObservableCollection<TransactionMade> TemplateTransacrion { get;private set; }
+
+		public ListCollectionView CategorysTransaction { get; private set; }
 
 	}
 }

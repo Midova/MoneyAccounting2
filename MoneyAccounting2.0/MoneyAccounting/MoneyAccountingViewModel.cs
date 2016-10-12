@@ -115,7 +115,10 @@ namespace MoneyAccounting
 		/// </summary>
 		public ListCollectionView CategorysTransaction { get; private set; }
 
-		public ObservableCollection<TransactionMade> TemplateTransacrion { get; set; }
+		/// <summary>
+		/// получает список шаблонов
+		/// </summary>
+		public ObservableCollection<TransactionMade> TemplateTransacrion { get;private set; }
 
 
 		/// <summary>
@@ -142,18 +145,23 @@ namespace MoneyAccounting
 		public ICommand AddTransactionMadeCommand { get; private set; }
 
 		/// <summary>
-		/// Метод: добавление соверенной транзакции в список транзакций
+		/// Метод: добавление совершенной транзакции в список транзакций
 		/// </summary>
 		private void AddTransactionMade()
 		{
 			var addition = new AddTransactionMadeViewModel();
 			
-
 			addition.Initialize(TemplateTransacrion, _CategorysTransaction);
 
 			if (_EditroWindowService.ShowDialog(addition) ?? false)
 			{
-				var current = new TransactionMade(addition.TransactionMade.Amount, (string)addition.CategorysTransaction.CurrentItem,addition.TransactionMade.DateTime,addition.TransactionMade.Comment);
+				var current = new TransactionMade();
+
+				current.Amount = addition.TransactionMade.Amount;
+				current.Category = (string)addition.CategorysTransaction.CurrentItem;
+				current.Comment = addition.TransactionMade.Comment;
+				current.DateTime = addition.TransactionMade.DateTime;
+				current.KindAccount = addition.AccountTyp();
 
 				_Purse.MadeTransaction.Add(current);
 			}
@@ -170,6 +178,11 @@ namespace MoneyAccounting
 
 			if (_EditroWindowService.ShowDialog(editor) ?? false)
 			{
+				current.Amount = editor.TransactionMade.Amount;
+				current.Category = (string)editor.CategorysTransaction.CurrentItem;
+				current.Comment = editor.TransactionMade.Comment;
+				current.DateTime = editor.TransactionMade.DateTime;
+				current.KindAccount = editor.TransactionMade.KindAccount;
 
 			}
 		}

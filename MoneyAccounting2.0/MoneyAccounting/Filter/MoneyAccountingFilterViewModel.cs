@@ -28,13 +28,13 @@ namespace MoneyAccounting
 		#region radiobutton
 
 		public enum TypeFilter
-		{
-			All,
-			Bank,
-			Cash
-		}
+			{
+				All,
+				Bank,
+				Cash
+			}
 
-		private TypeFilter _TypeAccountFilter;
+			private TypeFilter _TypeAccountFilter;
 
 		public AccountType AccountTypeFilter
 		{

@@ -22,16 +22,16 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Category:" VerticalAlignment="Center"/>
-        <ComboBox  Grid.Column="1" Grid.Row="0" ItemsSource ="{Binding Categorys}" IsEditable="True" Margin="5"/>
+        <ComboBox  Grid.Column="1" Grid.Row="0" ItemsSource ="{Binding CategorysTransaction}" IsEditable="True" Margin="5"/>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Amount:" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Amount}" Margin="5"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TransactionMade.Amount}" Margin="5"/>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="DateTime:" VerticalAlignment="Center"/>
-        <DatePicker Grid.Column="1" Grid.Row="2" Margin="5" SelectedDate="{Binding DateTime}"/>
+        <DatePicker Grid.Column="1" Grid.Row="2" Margin="5" SelectedDate="{Binding TransactionMade.DateTime}"/>
 
         <TextBlock Grid.Column="0" Grid.Row="3" Text="Comment:" VerticalAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Comment}" Margin="5"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TransactionMade.Comment}" Margin="5"/>
         
         <GroupBox Grid.Column="0" Grid.Row="4" Header="Type Account:" Grid.ColumnSpan="2">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >

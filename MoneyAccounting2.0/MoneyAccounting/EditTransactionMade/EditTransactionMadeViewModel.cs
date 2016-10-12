@@ -18,8 +18,8 @@ namespace MoneyAccounting.EditTransactionMade
 			CategorysTransaction = new ListCollectionView(categorysTransaction);
 		}
 
-		public TransactionMade TransactionMade { get; set; }		
+		public TransactionMade TransactionMade { get; private set; }		
 
-		public ListCollectionView CategorysTransaction { get; set; }
+		public ListCollectionView CategorysTransaction { get; private set; }
 	}
 }
