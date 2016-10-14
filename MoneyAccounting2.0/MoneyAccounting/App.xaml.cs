@@ -1,4 +1,5 @@
 ﻿using MoneyAccounting.EditTransactionMade;
+using MoneyAccounting.EditTransactionTemplate;
 using MoneyAccounting.View;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,8 @@ namespace MoneyAccounting
 			windowService.Add(typeof(EditTransactionMadeViewModel), typeof(EditTransactionMadeView));
 			windowService.Add(typeof(TemplateTransactionListViewModel), typeof(TemplateTransactionListView));
 			windowService.Add(typeof(DeleteTransactionMadeViewModel), typeof(DeleteTransactionMadeView));
+			windowService.Add(typeof(TemplateTransactionShowWindowViewModel), typeof(TemplateTransactionShowWindowView));
+			
 
 			var context = new MoneyAccountingViewModel(openFileService, saveFileService, windowService);
 

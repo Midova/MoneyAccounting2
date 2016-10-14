@@ -77,6 +77,10 @@
       <DependentUpon>TemplateTransactionListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EditTransactionMade\TemplateTransactionListViewModel.cs" />
+    <Compile Include="EditTransactionTemplate\TemplateTransactionShowWindowView.xaml.cs">
+      <DependentUpon>TemplateTransactionShowWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditTransactionTemplate\TemplateTransactionShowWindowViewModel.cs" />
     <Compile Include="Filter\MoneyAccountingFilterView.xaml.cs">
       <DependentUpon>MoneyAccountingFilterView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +98,10 @@
     <Compile Include="Service\SaveProjectFileService.cs" />
     <Compile Include="Service\EditorWindowService.cs" />
     <Page Include="EditTransactionMade\TemplateTransactionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditTransactionTemplate\TemplateTransactionShowWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

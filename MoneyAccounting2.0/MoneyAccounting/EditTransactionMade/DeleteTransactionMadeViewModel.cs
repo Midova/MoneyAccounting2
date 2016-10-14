@@ -11,7 +11,7 @@ namespace MoneyAccounting.EditTransactionMade
 	/// <summary>
 	/// класс: удаление транзакции из списка совершенных транзакций
 	/// </summary>
-	public class DeleteTransactionMadeViewModel : ObservableObject
+	public class DeleteTransactionMadeViewModel
 	{
 		/// <summary>
 		/// Инициализация класса удаления транзакции из списка совершенных транзакций

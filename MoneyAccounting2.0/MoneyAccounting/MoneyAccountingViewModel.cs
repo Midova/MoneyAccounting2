@@ -22,6 +22,7 @@ namespace MoneyAccounting
 		public MoneyAccountingViewModel(IOpenProjectFileService fileOpenDialogService,
 			ISaveProjectFileService fileSaveDialogService, IEditorWindowService editroWindowService)
 		{
+
 			_FileOpenDialogService = fileOpenDialogService;
 			_FileSaveDialogService = fileSaveDialogService;
 			_EditroWindowService = editroWindowService;
@@ -46,9 +47,10 @@ namespace MoneyAccounting
 			AddTransactionMadeCommand = new Command(AddTransactionMade);
 			EditTransactionMadeCommand = new Command(EditTransactionMade);
 			DeleteTransactionMadeCommand = new Command(DeleteTransactionMade, CanDeleteTransactionMade);
-
+			
 			Filter = new MoneyAccountingFilterViewModel(CategorysTransaction);
 
+			
 			//выбор категории
 			Filter.CategorysFilter.CurrentChanged += CategorysFilter_CurrentChanged;
 			Filter.PropertyChanged += Filter_PropertyChanged;
