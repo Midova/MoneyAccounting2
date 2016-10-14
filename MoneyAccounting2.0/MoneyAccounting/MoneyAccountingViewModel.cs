@@ -121,9 +121,9 @@ namespace MoneyAccounting
 		public ListCollectionView CategorysTransaction { get; private set; }
 
 		/// <summary>
-		/// получает список шаблонов
+		/// список шаблонов
 		/// </summary>
-		public ObservableCollection<TransactionMade> TemplateTransacrion { get;private set; }
+		public ObservableCollection<TransactionTemplate> _TemplatesTransacrion;
 
 
 		/// <summary>
@@ -156,7 +156,7 @@ namespace MoneyAccounting
 		{
 			var addition = new AddTransactionMadeViewModel();
 
-			addition.Initialize(TemplateTransacrion, _CategorysTransaction, _EditroWindowService);
+			addition.Initialize(_TemplatesTransacrion, _CategorysTransaction, _EditroWindowService);
 
 			if (_EditroWindowService.ShowDialog(addition) ?? false)
 			{

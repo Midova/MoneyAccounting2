@@ -1,6 +1,7 @@
 ﻿using Catel.Data;
 using Catel.MVVM;
 using MoneyAccounting.EditTransactionMade;
+using MoneyAccounting.EditTransactionTemplate;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,18 +23,19 @@ namespace MoneyAccounting
 		/// <summary>
 		/// Инициализация класса добавления новой  транзакции в список совершенных транзакций
 		/// </summary>
-		/// <param name="templateTransacrion">список шаблонов транзакций</param>
+		/// <param name="templatesTransacrion">список шаблонов транзакций</param>
 		/// <param name="categorysTransaction">список категорий транзакций</param>
-		/// <param name="editroWindowService">сервис изменение окна. Открытие окна в зависимости от типа</param>
-		public void Initialize(ObservableCollection<TransactionMade> templateTransacrion, List<string> categorysTransaction, IEditorWindowService editroWindowService)
+		/// <param name="editorWindowService">сервис изменение окна. Открытие окна в зависимости от типа</param>
+		public void Initialize(ObservableCollection<TransactionTemplate> templatesTransacrion, List<string> categorysTransaction, IEditorWindowService editorWindowService)
 		{
 			TransactionMade = new TransactionMade();
-			TemplateTransacrion = templateTransacrion;
+			TemplateTransacrion = templatesTransacrion;
 			CategorysTransaction = categorysTransaction;
 
-			ShowWindowTemplateCommand = new Command(ShowWindowTemplatee);
+			ShowWindowCommentCommand = new Command(ShowWindowComment);
+			TemplateWorkAddCommand = new Command(TemplateWorkAdd);
 
-			_EditroWindowService = editroWindowService;
+			_EditorWindowService = editorWindowService;
 		}
 
 		/// <summary>
@@ -80,7 +82,7 @@ namespace MoneyAccounting
 		/// <summary>
 		/// Получает список шаблонов транзакции
 		/// </summary>
-		public ObservableCollection<TransactionMade> TemplateTransacrion { get;private set; }
+		public ObservableCollection<TransactionTemplate> TemplateTransacrion { get;private set; }
 
 		/// <summary>
 		/// Получает список шаблонов
@@ -90,7 +92,7 @@ namespace MoneyAccounting
 		/// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
-		private IEditorWindowService _EditroWindowService; //убрала readonly
+		private IEditorWindowService _EditorWindowService; //убрала readonly
 
 		/// <summary>
 		/// Задает тип расчета (наличные или безналичные)
@@ -106,19 +108,39 @@ namespace MoneyAccounting
 		/// <summary>
 		/// Получает метод выбора шаблона
 		/// </summary>
-		public ICommand ShowWindowTemplateCommand { get; private set; }
+		public ICommand ShowWindowCommentCommand { get; private set; }
 
 		/// <summary>
 		/// Метод: добавление совершенной транзакции в список транзакций
 		/// </summary>
-		private void ShowWindowTemplatee()
+		private void ShowWindowComment()
 		{
 			var window = new TemplateTransactionListViewModel();
 			window.Initialize(CategorysTransaction);
-			if ( _EditroWindowService.ShowDialog(window) ?? false)
+
+			if ( _EditorWindowService.ShowDialog(window) ?? false)
 			{
 				if (window.CategorysTransaction.CurrentItem!=null)
 				TransactionMade.Category = (string)window.CategorysTransaction.CurrentItem;
+			}
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public ICommand TemplateWorkAddCommand { get; private set; }
+
+		/// <summary>
+		/// 
+		/// </summary>
+		private void TemplateWorkAdd()
+		{
+			var TemplateShow = new TemplateTransactionShowWindowViewModel();
+			TemplateShow.Initialize(TemplateTransacrion, _EditorWindowService);
+
+			if (_EditorWindowService.ShowDialog(TemplateShow) ?? false)
+			{
+				
 			}
 		}
 	}

@@ -17,10 +17,10 @@ namespace MoneyAccounting.EditTransactionMade
 		/// Инициализация класса удаления транзакции из списка совершенных транзакций
 		/// </summary>
 		/// <param name="operation">объект для удаления</param>
-		public void Initialize(TransactionMade transactionMade, IEditorWindowService editroWindowService)
+		public void Initialize(TransactionMade transactionMade, IEditorWindowService editorWindowService)
 		{
 			TransactionMade = new TransactionMade(transactionMade.Amount, transactionMade.Category, transactionMade.DateTime);
-			_EditroWindowService = editroWindowService;
+			_EditorWindowService = editorWindowService;
 		}
 
 		/// <summary>
@@ -31,7 +31,7 @@ namespace MoneyAccounting.EditTransactionMade
 		// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
-		private IEditorWindowService _EditroWindowService; //убрала readonly
+		private IEditorWindowService _EditorWindowService; //убрала readonly
 
 	}
 }

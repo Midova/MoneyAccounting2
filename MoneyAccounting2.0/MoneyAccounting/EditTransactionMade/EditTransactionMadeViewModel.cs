@@ -22,16 +22,16 @@ namespace MoneyAccounting.EditTransactionMade
 		/// </summary>
 		/// <param name="transactionMade">выбранная транзакция</param>
 		/// <param name="categorysTransaction">список категорий транзакций</param>
-		/// <param name="editroWindowService">сервис изменение окна. Открытие окна в зависимости от типа</param>
-		public void Initialize(TransactionMade transactionMade, List<string> categorysTransaction, IEditorWindowService editroWindowService)
+		/// <param name="editorWindowService">сервис изменение окна. Открытие окна в зависимости от типа</param>
+		public void Initialize(TransactionMade transactionMade, List<string> categorysTransaction, IEditorWindowService editorWindowService)
 		{
 			TransactionMade = new TransactionMade(transactionMade.Amount, transactionMade.Category, transactionMade.DateTime, transactionMade.Comment, transactionMade.KindAccount);
 						
 			CategorysTransaction = categorysTransaction;
 
-			ShowWindowTemplateCommand = new Command(ShowWindowTemplatee);
+			ShowWindowCommentCommand = new Command(ShowWindowComment);
 
-			_EditroWindowService = editroWindowService;
+			_EditorWindowService = editorWindowService;
 		}
 
 		
@@ -84,7 +84,7 @@ namespace MoneyAccounting.EditTransactionMade
 		/// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
-		private IEditorWindowService _EditroWindowService; //убрала readonly
+		private IEditorWindowService _EditorWindowService; //убрала readonly
 
 		/// <summary>
 		/// Задает тип расчета (наличные или безналичные)
@@ -100,16 +100,16 @@ namespace MoneyAccounting.EditTransactionMade
 		/// <summary>
 		/// Получает метод выбора шаблона
 		/// </summary>
-		public ICommand ShowWindowTemplateCommand { get; private set; }
+		public ICommand ShowWindowCommentCommand { get; private set; }
 
 		/// <summary>
 		/// Метод: добавление совершенной транзакции в список транзакций
 		/// </summary>
-		private void ShowWindowTemplatee()
+		private void ShowWindowComment()
 		{
 			var window = new TemplateTransactionListViewModel();
 			window.Initialize(CategorysTransaction);
-			if (_EditroWindowService.ShowDialog(window) ?? false)
+			if (_EditorWindowService.ShowDialog(window) ?? false)
 			{
 				if (window.CategorysTransaction.CurrentItem != null)
 					TransactionMade.Category = (string)window.CategorysTransaction.CurrentItem;
