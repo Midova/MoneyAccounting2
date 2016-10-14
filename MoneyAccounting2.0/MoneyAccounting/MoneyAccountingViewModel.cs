@@ -45,6 +45,7 @@ namespace MoneyAccounting
 			
 			AddTransactionMadeCommand = new Command(AddTransactionMade);
 			EditTransactionMadeCommand = new Command(EditTransactionMade);
+			DeleteTransactionMadeCommand = new Command(DeleteTransactionMade, CanDeleteTransactionMade);
 
 			Filter = new MoneyAccountingFilterViewModel(CategorysTransaction);
 
@@ -169,8 +170,14 @@ namespace MoneyAccounting
 			}
 		}
 
+		/// <summary>
+		/// Получает обработчик редактирования транзакции из списка совершенных транзакций
+		/// </summary>
 		public ICommand EditTransactionMadeCommand { get; private set; }
 
+		/// <summary>
+		/// Метод: редактирование транзакции из списка совершенных транзакций
+		/// </summary>
 		private void EditTransactionMade()
 		{
 			var editor = new EditTransactionMadeViewModel();
@@ -187,6 +194,41 @@ namespace MoneyAccounting
 				current.KindAccount = editor.TransactionMade.KindAccount;
 				FillingCategoryList();
 
+			}
+		}
+
+		/// <summary>
+		/// Получает отбработчик удаления транзакции из списка транзакций.
+		/// </summary>
+		public ICommand DeleteTransactionMadeCommand { get; private set; }
+
+		/// <summary>
+		/// Метод: Проверяет можно ли совершить удаление (заполнен ли список транзакций и выбранна ли транзакция).
+		/// </summary>
+		/// <returns>правда/лож</returns>
+		private bool CanDeleteTransactionMade()
+		{
+			return ItemsTransactionMade != null && ItemsTransactionMade.CurrentItem != null;			
+		}
+
+
+		/// <summary>
+		/// Метод: удаление транзакции из списка совершенных транзакций.
+		/// </summary>
+		private void DeleteTransactionMade()
+		{			
+			var remover = new DeleteTransactionMadeViewModel();
+			var current = (TransactionMade)ItemsTransactionMade.CurrentItem;
+			
+			if (current != null)
+			{
+				remover.Initialize(current, _EditroWindowService);
+								
+				if (_EditroWindowService.ShowDialog(remover) ?? false)
+				{
+					ItemsTransactionMade.Remove(ItemsTransactionMade.CurrentItem);
+					FillingCategoryList();
+				}							
 			}
 		}
 

@@ -13,7 +13,7 @@ using TransactionLibrary;
 namespace MoneyAccounting.EditTransactionMade
 {
 	/// <summary>
-	/// Класс: редаоктирование транзакции из списка совершенных транзакций
+	/// Класс: редактирование транзакции из списка совершенных транзакций
 	/// </summary>
 	public class EditTransactionMadeViewModel : ObservableObject
 	{
@@ -34,11 +34,7 @@ namespace MoneyAccounting.EditTransactionMade
 			_EditroWindowService = editroWindowService;
 		}
 
-		/// <summary>
-		/// Поле: схранять ли транзакцию в шаблон
-		/// </summary>
-		private bool _IsAddTemlate;
-
+		
 		/// <summary>
 		/// Поле: тип расчета (наличный/ безналичный)
 		/// </summary>

@@ -49,7 +49,7 @@
                     
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Delete">
+                <MenuItem Header="Delete" Command="{Binding DeleteTransactionMadeCommand}">
                     <MenuItem.Icon>
                         <Image Source=""/>
                     </MenuItem.Icon>

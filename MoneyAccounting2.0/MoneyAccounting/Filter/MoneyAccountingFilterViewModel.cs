@@ -7,8 +7,15 @@ using TransactionLibrary;
 
 namespace MoneyAccounting
 {
+	/// <summary>
+	/// Класс: применение фильра к списку совершенных транзакций
+	/// </summary>
 	public class MoneyAccountingFilterViewModel : ObservableObject
 	{
+		/// <summary>
+		/// Инициализация класса применения фильра к списку совершенных транзакций
+		/// </summary>
+		/// <param name="categorysTransaction"></param>
 		public MoneyAccountingFilterViewModel(ListCollectionView categorysTransaction)
 		{
 			StartDateFilter = DateTime.Now.AddDays(-30);

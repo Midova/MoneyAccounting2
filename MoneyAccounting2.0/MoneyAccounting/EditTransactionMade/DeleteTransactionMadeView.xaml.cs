@@ -23,5 +23,11 @@ namespace MoneyAccounting.View
 		{
 			InitializeComponent();
 		}
+
+		private void YesButtom_Click(object sender, RoutedEventArgs e)
+		{
+			DialogResult = true;
+			Close();		
+		}
 	}
 }

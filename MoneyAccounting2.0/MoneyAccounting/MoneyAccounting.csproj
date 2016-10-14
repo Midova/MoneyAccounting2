@@ -71,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EditTransactionMade\DeleteTransactionMadeViewModel.cs" />
     <Compile Include="EditTransactionMade\EditTransactionMadeViewModel.cs" />
     <Compile Include="EditTransactionMade\TemplateTransactionListView.xaml.cs">
       <DependentUpon>TemplateTransactionListView.xaml</DependentUpon>

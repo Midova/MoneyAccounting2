@@ -26,6 +26,7 @@ namespace MoneyAccounting
 			windowService.Add(typeof(AddTransactionMadeViewModel), typeof(AddTransactionMadeView));
 			windowService.Add(typeof(EditTransactionMadeViewModel), typeof(EditTransactionMadeView));
 			windowService.Add(typeof(TemplateTransactionListViewModel), typeof(TemplateTransactionListView));
+			windowService.Add(typeof(DeleteTransactionMadeViewModel), typeof(DeleteTransactionMadeView));
 
 			var context = new MoneyAccountingViewModel(openFileService, saveFileService, windowService);
 
