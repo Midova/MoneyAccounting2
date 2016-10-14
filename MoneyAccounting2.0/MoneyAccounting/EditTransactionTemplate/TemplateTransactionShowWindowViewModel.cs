@@ -17,8 +17,7 @@ namespace MoneyAccounting.EditTransactionTemplate
 			_TemplatesTransacrion = templateTransacrion;
 			_EditorWindowService = editorWindowService;
 
-			TemplatesTransacrion = new ListCollectionView(_TemplatesTransacrion);
-			
+			TemplatesTransacrion = new ListCollectionView(_TemplatesTransacrion);			
 		}
 
 		/// <summary>
