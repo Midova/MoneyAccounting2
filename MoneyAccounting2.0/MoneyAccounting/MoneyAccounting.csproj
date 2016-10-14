@@ -72,6 +72,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="EditTransactionMade\EditTransactionMadeViewModel.cs" />
+    <Compile Include="EditTransactionMade\TemplateTransactionListView.xaml.cs">
+      <DependentUpon>TemplateTransactionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditTransactionMade\TemplateTransactionListViewModel.cs" />
     <Compile Include="Filter\MoneyAccountingFilterView.xaml.cs">
       <DependentUpon>MoneyAccountingFilterView.xaml</DependentUpon>
     </Compile>
@@ -88,6 +92,10 @@
     <Compile Include="Service\OpenProjectFileService.cs" />
     <Compile Include="Service\SaveProjectFileService.cs" />
     <Compile Include="Service\EditorWindowService.cs" />
+    <Page Include="EditTransactionMade\TemplateTransactionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Filter\MoneyAccountingFilterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -156,7 +164,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\TransactionLibrary\TransactionLibrary\TransactionLibrary\TransactionLibrary.csproj">

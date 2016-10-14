@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MoneyAccounting.View
+namespace MoneyAccounting.EditTransactionMade
 {
 	/// <summary>
-	/// Логика взаимодействия для EditTransactionMadeView.xaml
+	/// Логика взаимодействия для TemplateTransactionListView.xaml
 	/// </summary>
-	public partial class EditTransactionMadeView : Window
+	public partial class TemplateTransactionListView : Window
 	{
-		public EditTransactionMadeView()
+		public TemplateTransactionListView()
 		{
 			InitializeComponent();
 		}

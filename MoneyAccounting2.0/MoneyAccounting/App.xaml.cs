@@ -24,8 +24,9 @@ namespace MoneyAccounting
 
 			var windowService = new EditorWindowService();
 			windowService.Add(typeof(AddTransactionMadeViewModel), typeof(AddTransactionMadeView));
-			windowService.Add(typeof(EditTransactionMadeViewModel), typeof(EditTransactionMadeView));	
-			
+			windowService.Add(typeof(EditTransactionMadeViewModel), typeof(EditTransactionMadeView));
+			windowService.Add(typeof(TemplateTransactionListViewModel), typeof(TemplateTransactionListView));
+
 			var context = new MoneyAccountingViewModel(openFileService, saveFileService, windowService);
 
 			mainWindow.DataContext = context;

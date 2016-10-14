@@ -22,7 +22,14 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Category:" VerticalAlignment="Center"/>
-        <ComboBox  Grid.Column="1" Grid.Row="0" ItemsSource ="{Binding CategorysTransaction}" IsEditable="True" Margin="5"/>
+        <Grid Grid.Column="1" Grid.Row="0" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding TransactionMade.Category}" />
+            <Button Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ShowWindowTemplateCommand}" >+</Button>
+        </Grid>
 
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Amount:" VerticalAlignment="Center"/>
         <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TransactionMade.Amount}" Margin="5"/>
@@ -35,13 +42,13 @@
         
         <GroupBox Grid.Column="0" Grid.Row="4" Header="Type Account:" Grid.ColumnSpan="2">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" >
-                <RadioButton GroupName="AccountType" Margin="1">Bank</RadioButton>
-                <RadioButton GroupName="AccountType" Margin="1">Cash</RadioButton>  
+                <RadioButton GroupName="AccountType" Margin="1" IsChecked="{Binding IsTypeBank}">Bank</RadioButton>
+                <RadioButton GroupName="AccountType" Margin="1" IsChecked="{Binding IsTypeCash}">Cash</RadioButton>  
             </StackPanel>
         </GroupBox>            
 
         <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="5" Width="auto">           
-            <Button Width="55" Margin="4,0">Ok</Button>            
+            <Button x:Name="OkButton" Click="OkButton_Click" Width="55" Margin="4,0">Ok</Button>            
             <Button IsCancel="True" Width="55">Cancel</Button>            
         </StackPanel>
 

@@ -35,9 +35,11 @@ namespace MoneyAccounting
 			//создаем оболочку для работы со списком транзакций
 			ItemsTransactionMade = new ListCollectionView(_TransactionMade);
 
+			ItemsTransactionMade.Filter = null;
+
 			_TransactionMade.CollectionChanged += _TransactionMade_CollectionChanged;
 
-
+		
 			FillingCategoryList();
 			CategorysTransaction = new ListCollectionView(_CategorysTransaction);
 			
@@ -64,7 +66,7 @@ namespace MoneyAccounting
 		private void Filter_OnFilterApplyed(object sender, MoneyAccountingFilterViewModel.Filter e)
 		{			
 			ItemsTransactionMade.Filter = e.FilterRule;
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 
 		private void Filter_OnChoiceTypeAccount(object sender, EventArgs e)
@@ -150,15 +152,15 @@ namespace MoneyAccounting
 		private void AddTransactionMade()
 		{
 			var addition = new AddTransactionMadeViewModel();
-			
-			addition.Initialize(TemplateTransacrion, _CategorysTransaction);
+
+			addition.Initialize(TemplateTransacrion, _CategorysTransaction, _EditroWindowService);
 
 			if (_EditroWindowService.ShowDialog(addition) ?? false)
 			{
 				var current = new TransactionMade();
 
 				current.Amount = addition.TransactionMade.Amount;
-				current.Category = (string)addition.CategorysTransaction.CurrentItem;
+				current.Category = addition.TransactionMade.Category;
 				current.Comment = addition.TransactionMade.Comment;
 				current.DateTime = addition.TransactionMade.DateTime;
 				current.KindAccount = addition.AccountTyp();
@@ -174,15 +176,16 @@ namespace MoneyAccounting
 			var editor = new EditTransactionMadeViewModel();
 			var current = (TransactionMade)ItemsTransactionMade.CurrentItem;
 
-			editor.Initialize(current, _CategorysTransaction);
+			editor.Initialize(current, _CategorysTransaction, _EditroWindowService);
 
 			if (_EditroWindowService.ShowDialog(editor) ?? false)
 			{
 				current.Amount = editor.TransactionMade.Amount;
-				current.Category = (string)editor.CategorysTransaction.CurrentItem;
+				current.Category = editor.TransactionMade.Category;
 				current.Comment = editor.TransactionMade.Comment;
 				current.DateTime = editor.TransactionMade.DateTime;
 				current.KindAccount = editor.TransactionMade.KindAccount;
+				FillingCategoryList();
 
 			}
 		}
