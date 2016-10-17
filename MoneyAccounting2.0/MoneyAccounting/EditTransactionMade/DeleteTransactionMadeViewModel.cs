@@ -14,13 +14,21 @@ namespace MoneyAccounting.EditTransactionMade
 	public class DeleteTransactionMadeViewModel
 	{
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="editorWindowService"></param>
+		public DeleteTransactionMadeViewModel(IEditorWindowService editorWindowService)
+		{
+			_EditorWindowService = editorWindowService;
+		}
+		
+		/// <summary>
 		/// Инициализация класса удаления транзакции из списка совершенных транзакций
 		/// </summary>
 		/// <param name="operation">объект для удаления</param>
-		public void Initialize(TransactionMade transactionMade, IEditorWindowService editorWindowService)
+		public void Initialize(TransactionMade transactionMade)
 		{
-			TransactionMade = new TransactionMade(transactionMade.Amount, transactionMade.Category, transactionMade.DateTime);
-			_EditorWindowService = editorWindowService;
+			TransactionMade = new TransactionMade(transactionMade.Amount, transactionMade.Category, transactionMade.DateTime);			
 		}
 
 		/// <summary>
@@ -31,7 +39,6 @@ namespace MoneyAccounting.EditTransactionMade
 		// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
-		private IEditorWindowService _EditorWindowService; //убрала readonly
-
+		private readonly IEditorWindowService _EditorWindowService; //убрала 
 	}
 }

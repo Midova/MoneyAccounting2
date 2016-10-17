@@ -12,11 +12,15 @@ namespace MoneyAccounting.EditTransactionTemplate
 {
 	public class TemplateTransactionShowWindowViewModel : ObservableObject
 	{
-		public void Initialize(ObservableCollection<TransactionTemplate> templateTransacrion, IEditorWindowService editorWindowService)
+
+		public TemplateTransactionShowWindowViewModel(IEditorWindowService editorWindowService)
+		{
+			_EditorWindowService = editorWindowService;
+		}
+
+		public void Initialize(ObservableCollection<TransactionTemplate> templateTransacrion)
 		{
 			_TemplatesTransacrion = templateTransacrion;
-			_EditorWindowService = editorWindowService;
-
 			TemplatesTransacrion = new ListCollectionView(_TemplatesTransacrion);			
 		}
 
@@ -34,6 +38,6 @@ namespace MoneyAccounting.EditTransactionTemplate
 		/// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
-		private IEditorWindowService _EditorWindowService; //убрала readonly
+		private readonly IEditorWindowService _EditorWindowService;
 	}
 }

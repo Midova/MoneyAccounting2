@@ -48,7 +48,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Margin="4" Command="{Binding ApplyDataRangeCommand}" >Apply</Button>
+            
+            <Button Grid.Column="1" Margin="4" Command="{Binding ApplyDataRangeCommand}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/MoneyAccounting;component/Resources/Images/accept_button.png" />
+                    <TextBlock Margin="4" Text="Accept"/>
+                </StackPanel>
+            </Button>
             <Button Grid.Column="2" Margin="4" Command="{Binding CleareFilterCommand}">Clean</Button>
         </Grid>
     </Grid>

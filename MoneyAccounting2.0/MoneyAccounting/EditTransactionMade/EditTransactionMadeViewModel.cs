@@ -1,12 +1,7 @@
 ﻿using Catel.Data;
 using Catel.MVVM;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Input;
 using TransactionLibrary;
 
@@ -17,23 +12,30 @@ namespace MoneyAccounting.EditTransactionMade
 	/// </summary>
 	public class EditTransactionMadeViewModel : ObservableObject
 	{
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="editorWindowService"></param>
+		public EditTransactionMadeViewModel(IEditorWindowService editorWindowService)
+		{
+			_EditorWindowService = editorWindowService;
+		}
+
 		/// <summary>
 		/// Инициализация класса редактирования транзакции из списка совершенных транзакций
 		/// </summary>
 		/// <param name="transactionMade">выбранная транзакция</param>
 		/// <param name="categorysTransaction">список категорий транзакций</param>
 		/// <param name="editorWindowService">сервис изменение окна. Открытие окна в зависимости от типа</param>
-		public void Initialize(TransactionMade transactionMade, List<string> categorysTransaction, IEditorWindowService editorWindowService)
+		public void Initialize(TransactionMade transactionMade, List<string> categorysTransaction)
 		{
 			TransactionMade = new TransactionMade(transactionMade.Amount, transactionMade.Category, transactionMade.DateTime, transactionMade.Comment, transactionMade.KindAccount);
 						
 			CategorysTransaction = categorysTransaction;
 
-			ShowWindowCommentCommand = new Command(ShowWindowComment);
-
-			_EditorWindowService = editorWindowService;
+			ShowWindowCommentCommand = new Command(ShowWindowComment);			
 		}
-
 		
 		/// <summary>
 		/// Поле: тип расчета (наличный/ безналичный)
@@ -45,10 +47,10 @@ namespace MoneyAccounting.EditTransactionMade
 		/// </summary>
 		public bool IsTypeBank
 		{
-			get { return _TypeAccountFilter == AccountType.Bank; }
+			get { return _TypeAccountFilter == TransactionLibrary.AccountType.Bank; }
 			set
 			{
-				_TypeAccountFilter = value ? AccountType.Bank : _TypeAccountFilter;
+				_TypeAccountFilter = value ? TransactionLibrary.AccountType.Bank : _TypeAccountFilter;
 				RaisePropertyChanged(nameof(IsTypeBank));
 			}
 		}
@@ -58,10 +60,10 @@ namespace MoneyAccounting.EditTransactionMade
 		/// </summary>
 		public bool IsTypeCash
 		{
-			get { return _TypeAccountFilter == AccountType.Cash; }
+			get { return _TypeAccountFilter == TransactionLibrary.AccountType.Cash; }
 			set
 			{
-				_TypeAccountFilter = value ? AccountType.Cash : _TypeAccountFilter;
+				_TypeAccountFilter = value ? TransactionLibrary.AccountType.Cash : _TypeAccountFilter;
 				RaisePropertyChanged(nameof(IsTypeCash));
 			}
 		}
@@ -84,17 +86,17 @@ namespace MoneyAccounting.EditTransactionMade
 		/// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
-		private IEditorWindowService _EditorWindowService; //убрала readonly
+		private readonly IEditorWindowService _EditorWindowService; //убрала 
 
 		/// <summary>
 		/// Задает тип расчета (наличные или безналичные)
 		/// </summary>
 		/// <returns>Bank/Cash</returns>
-		public AccountType AccountTyp()
+		public AccountType AccountType()
 		{
 			if (IsTypeBank)
-				return AccountType.Bank;
-			return AccountType.Cash;
+				return TransactionLibrary.AccountType.Bank;
+			return TransactionLibrary.AccountType.Cash;
 		}
 
 		/// <summary>
@@ -109,6 +111,7 @@ namespace MoneyAccounting.EditTransactionMade
 		{
 			var window = new TemplateTransactionListViewModel();
 			window.Initialize(CategorysTransaction);
+
 			if (_EditorWindowService.ShowDialog(window) ?? false)
 			{
 				if (window.CategorysTransaction.CurrentItem != null)

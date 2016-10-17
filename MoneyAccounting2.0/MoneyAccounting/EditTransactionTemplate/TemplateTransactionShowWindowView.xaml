@@ -14,14 +14,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
-        <ToolBar>
-            <Button Command="{Binding }">Add</Button>
-            <Button Command="{Binding }">Edit</Button>
-            <Button Command="{Binding }">Delete</Button>
-        </ToolBar>
-         
-        <DataGrid Grid.Row="1" Margin="5" ItemsSource="{Binding TemplatesTransacrion}" AutoGenerateColumns="False" IsReadOnly="True">
-           
+        <DataGrid Grid.Row="1" Margin="5" ItemsSource="{Binding TemplatesTransacrion}" AutoGenerateColumns="False">           
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Category" Binding="{Binding TemplatesTransacrion.Categore}"/>
                 <DataGridTextColumn Header="Amount" Binding="{Binding TemplatesTransacrion.Amount}"/>

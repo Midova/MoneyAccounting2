@@ -8,18 +8,16 @@
         Title="TemplateTransactionListView" Height="350" Width="200">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <DataGrid Grid.Column="0" Grid.Row="0" Margin="5" ItemsSource="{Binding CategorysTransaction}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Category" Binding="{Binding}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+
+        <TextBlock Text="Category :" Margin="5"/>
+        <ListBox Grid.Column="0" Grid.Row="1" Margin="5" ItemsSource="{Binding CategorysTransaction}"/>
         <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5" Width="auto">
             <Button x:Name="OkButton" Click="OkButton_Click" Width="55" Margin="4">Ok</Button>
             <Button IsCancel="True" Width="55" Margin="4">Cansel</Button>

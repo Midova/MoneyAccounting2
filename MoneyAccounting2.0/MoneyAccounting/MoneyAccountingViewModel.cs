@@ -154,9 +154,9 @@ namespace MoneyAccounting
 		/// </summary>
 		private void AddTransactionMade()
 		{
-			var addition = new AddTransactionMadeViewModel();
+			var addition = new AddTransactionMadeViewModel(_EditroWindowService);
 
-			addition.Initialize(_TemplatesTransacrion, _CategorysTransaction, _EditroWindowService);
+			addition.Initialize(_TemplatesTransacrion, _CategorysTransaction);
 
 			if (_EditroWindowService.ShowDialog(addition) ?? false)
 			{
@@ -182,10 +182,10 @@ namespace MoneyAccounting
 		/// </summary>
 		private void EditTransactionMade()
 		{
-			var editor = new EditTransactionMadeViewModel();
+			var editor = new EditTransactionMadeViewModel(_EditroWindowService);
 			var current = (TransactionMade)ItemsTransactionMade.CurrentItem;
 
-			editor.Initialize(current, _CategorysTransaction, _EditroWindowService);
+			editor.Initialize(current, _CategorysTransaction);
 
 			if (_EditroWindowService.ShowDialog(editor) ?? false)
 			{
@@ -218,13 +218,13 @@ namespace MoneyAccounting
 		/// Метод: удаление транзакции из списка совершенных транзакций.
 		/// </summary>
 		private void DeleteTransactionMade()
-		{			
-			var remover = new DeleteTransactionMadeViewModel();
+		{
+			var remover = new DeleteTransactionMadeViewModel(_EditroWindowService);
 			var current = (TransactionMade)ItemsTransactionMade.CurrentItem;
 			
 			if (current != null)
 			{
-				remover.Initialize(current, _EditroWindowService);
+				remover.Initialize(current);
 								
 				if (_EditroWindowService.ShowDialog(remover) ?? false)
 				{

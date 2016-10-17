@@ -21,21 +21,27 @@ namespace MoneyAccounting
 	public class AddTransactionMadeViewModel : ObservableObject
 	{
 		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="editorWindowService">сервис изменение окна. Открытие окна в зависимости от типа</param>
+		public AddTransactionMadeViewModel(IEditorWindowService editorWindowService)
+		{
+			_EditorWindowService = editorWindowService;
+		}
+		
+		/// <summary>
 		/// Инициализация класса добавления новой  транзакции в список совершенных транзакций
 		/// </summary>
 		/// <param name="templatesTransacrion">список шаблонов транзакций</param>
-		/// <param name="categorysTransaction">список категорий транзакций</param>
-		/// <param name="editorWindowService">сервис изменение окна. Открытие окна в зависимости от типа</param>
-		public void Initialize(ObservableCollection<TransactionTemplate> templatesTransacrion, List<string> categorysTransaction, IEditorWindowService editorWindowService)
+		/// <param name="categorysTransaction">список категорий транзакций</param>		
+		public void Initialize(ObservableCollection<TransactionTemplate> templatesTransacrion, List<string> categorysTransaction)
 		{
 			TransactionMade = new TransactionMade();
 			TemplateTransacrion = templatesTransacrion;
 			CategorysTransaction = categorysTransaction;
 
 			ShowWindowCommentCommand = new Command(ShowWindowComment);
-			TemplateWorkAddCommand = new Command(TemplateWorkAdd);
-
-			_EditorWindowService = editorWindowService;
+			TemplateWorkAddCommand = new Command(TemplateWorkAdd);		
 		}
 
 		/// <summary>
@@ -92,7 +98,7 @@ namespace MoneyAccounting
 		/// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
-		private IEditorWindowService _EditorWindowService; //убрала readonly
+		private readonly IEditorWindowService _EditorWindowService; //убрала 
 
 		/// <summary>
 		/// Задает тип расчета (наличные или безналичные)
@@ -135,8 +141,8 @@ namespace MoneyAccounting
 		/// </summary>
 		private void TemplateWorkAdd()
 		{
-			var TemplateShow = new TemplateTransactionShowWindowViewModel();
-			TemplateShow.Initialize(TemplateTransacrion, _EditorWindowService);
+			var TemplateShow = new TemplateTransactionShowWindowViewModel(_EditorWindowService);
+			TemplateShow.Initialize(TemplateTransacrion);
 
 			if (_EditorWindowService.ShowDialog(TemplateShow) ?? false)
 			{

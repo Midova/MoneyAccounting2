@@ -1,11 +1,14 @@
-﻿<Window x:Class="MoneyAccounting.View.DeleteTransactionMadeView"
+﻿<Controls:MetroWindow x:Class="MoneyAccounting.View.DeleteTransactionMadeView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MoneyAccounting.View"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"                      
+        xmlns:local="clr-namespace:MoneyAccounting.View"                      
         mc:Ignorable="d"
-        Title="DeleteTransactionMadeView" Height="200" Width="350">
+                      BorderThickness="1"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
+        Title="DeleteTransactionMadeView" Height="200" Width="350" ResizeMode="NoResize">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -16,7 +19,7 @@
             <TextBlock Text="Are you sure you want to delete the selected transaction?" Width="auto" Margin="6"/>            
         </StackPanel>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -28,14 +31,14 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Category :" HorizontalAlignment="Right" Margin="5"/>
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding TransactionMade.Category}" HorizontalAlignment="Right"  Margin="5"/>
+            <TextBlock Grid.Column="0" Grid.Row="0" Text="Category :"  Margin="5"/>
+            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding TransactionMade.Category}" Margin="5"/>
 
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="Amount : " HorizontalAlignment="Right" Margin="5"/>
-            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding TransactionMade.Amount}" HorizontalAlignment="Right" Margin="5" />
+            <TextBlock Grid.Column="0" Grid.Row="1" Text="Amount : " Margin="5"/>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding TransactionMade.Amount}" Margin="5" />
 
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="Date transaction : " HorizontalAlignment="Right" Margin="5"/>
-            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding TransactionMade.DateTime.Date, StringFormat='dd/MM/yyyy'}" HorizontalAlignment="Right" Margin="5"/>            
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Date transaction : " Margin="5"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding TransactionMade.DateTime.Date, StringFormat='dd/MM/yyyy'}" Margin="5"/>            
         </Grid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -44,4 +47,4 @@
         </StackPanel>
         
     </Grid>
-</Window>
+</Controls:MetroWindow>

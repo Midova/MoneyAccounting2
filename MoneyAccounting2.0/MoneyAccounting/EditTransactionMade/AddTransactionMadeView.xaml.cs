@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace MoneyAccounting
 	/// <summary>
 	/// Логика взаимодействия для AddTransactionMadeView.xaml
 	/// </summary>
-	public partial class AddTransactionMadeView : Window
+	public partial class AddTransactionMadeView : MetroWindow
 	{
 		public AddTransactionMadeView()
 		{

@@ -6,6 +6,8 @@
                       xmlns:local="clr-namespace:MoneyAccounting"
                       mc:Ignorable="d"
                       ShowIconOnTitleBar="True"
+                      BorderThickness="1"
+                      GlowBrush="{DynamicResource AccentColorBrush}"                    
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="MainWindow" Height="450" Width="525">
     <Controls:MetroWindow.Resources>
