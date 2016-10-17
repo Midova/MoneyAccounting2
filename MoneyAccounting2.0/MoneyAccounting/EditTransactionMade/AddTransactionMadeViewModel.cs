@@ -47,7 +47,7 @@ namespace MoneyAccounting
 		/// <summary>
 		/// Поле: схранять ли транзакцию в шаблон
 		/// </summary>
-		private bool _IsAddTemlate;
+		public bool IsAddTemlate { get; set; }
 
 		/// <summary>
 		/// Поле: тип расчета (наличный/ безналичный)
@@ -145,9 +145,7 @@ namespace MoneyAccounting
 			TemplateShow.Initialize(TemplateTransacrion);
 
 			if (_EditorWindowService.ShowDialog(TemplateShow) ?? false)
-			{
-				
-			}
+				TransactionMade = (TransactionMade)TemplateShow.CreateTransactionMade();
 		}
 	}
 }

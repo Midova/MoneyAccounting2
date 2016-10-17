@@ -13,12 +13,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
+
         <DataGrid Grid.Row="1" Margin="5" ItemsSource="{Binding TemplatesTransacrion}" AutoGenerateColumns="False">           
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Category" Binding="{Binding TemplatesTransacrion.Categore}"/>
-                <DataGridTextColumn Header="Amount" Binding="{Binding TemplatesTransacrion.Amount}"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding TemplatesTransacrion.KindAccount}"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}"/>
+                <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                <DataGridTextColumn Header="Type" Binding="{Binding KindAccount}"/>
             </DataGrid.Columns>
         </DataGrid>
        

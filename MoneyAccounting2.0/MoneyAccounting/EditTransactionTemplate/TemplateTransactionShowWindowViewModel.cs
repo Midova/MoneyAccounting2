@@ -39,5 +39,13 @@ namespace MoneyAccounting.EditTransactionTemplate
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
 		private readonly IEditorWindowService _EditorWindowService;
+
+		public TransactionMade CreateTransactionMade()
+		{
+			var current = (TransactionTemplate)TemplatesTransacrion.CurrentItem;
+			if (current != null)
+				return current.CreateOperation();
+			return null;
+		}
 	}
 }

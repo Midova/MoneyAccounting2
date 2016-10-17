@@ -32,6 +32,7 @@ namespace MoneyAccounting
 
 			//в приватное поле передаем список транзакций из "кошелька"
 			_TransactionMade = _Purse.MadeTransaction;
+			_TemplatesTransacrion = _Purse.TemplateTransaction;
 
 			//создаем оболочку для работы со списком транзакций
 			ItemsTransactionMade = new ListCollectionView(_TransactionMade);
@@ -39,8 +40,7 @@ namespace MoneyAccounting
 			ItemsTransactionMade.Filter = null;
 
 			_TransactionMade.CollectionChanged += _TransactionMade_CollectionChanged;
-
-		
+					
 			FillingCategoryList();
 			CategorysTransaction = new ListCollectionView(_CategorysTransaction);
 			
@@ -169,6 +169,12 @@ namespace MoneyAccounting
 				current.KindAccount = addition.AccountTyp();
 
 				_Purse.MadeTransaction.Add(current);
+			}
+
+			if (addition.IsAddTemlate)
+			{
+				var template = new TransactionTemplate(addition.TransactionMade.Amount, addition.TransactionMade.Category, addition.AccountTyp());
+				_Purse.TemplateTransaction.Add(template);
 			}
 		}
 

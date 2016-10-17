@@ -56,7 +56,7 @@
         <CheckBox Grid.Row="6" Grid.Column="0" IsChecked="{Binding IsAddTemlate}" Grid.ColumnSpan="2" Margin="4">Сохранить как шаблон</CheckBox >
 
         <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="2" Margin="5" Width="auto">
-            <Button Command="{Binding TemplateWorkAddCommand}">Добавить из шаблона</Button>
+            <Button Command="{Binding TemplateWorkAddCommand}">Add the template</Button>
             <Button x:Name="OkButton" Click="OkButton_Click" Width="55" Margin="4,0">Ok</Button>            
             <Button IsCancel="True" Width="55">Cancel</Button>            
         </StackPanel>

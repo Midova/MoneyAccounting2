@@ -18,6 +18,9 @@ namespace MoneyAccounting
 			result.MadeTransaction.Add(new TransactionMade(3, "категория2", new DateTime(2016, 04, 01)));
 			result.MadeTransaction.Add(new TransactionMade(4, "категория1", new DateTime(2016, 04, 02),"дом", AccountType.Bank));
 
+			result.TemplateTransaction.Add(new TransactionTemplate(3, "категория1", AccountType.Cash));
+			result.TemplateTransaction.Add(new TransactionTemplate(2, "категория2", AccountType.Bank));
+
 			return result;
 		}
 	}
