@@ -37,7 +37,7 @@ namespace MoneyAccounting
 		public void Initialize(ObservableCollection<TransactionTemplate> templatesTransacrion, List<string> categorysTransaction)
 		{
 			TransactionMade = new TransactionMade();
-			TemplateTransacrion = templatesTransacrion;
+			_TemplateTransacrion = templatesTransacrion;
 			CategorysTransaction = categorysTransaction;
 
 			ShowWindowCommentCommand = new Command(ShowWindowComment);
@@ -79,17 +79,29 @@ namespace MoneyAccounting
 				RaisePropertyChanged(nameof(IsTypeCash));
 			}
 		}
-		
+
+
+		private TransactionMade _TransactionMade;
+
 		/// <summary>
 		/// Получает транзакцию
 		/// </summary>
-		public TransactionMade TransactionMade { get; private set; }
+		public TransactionMade TransactionMade
+		{
+			get { return _TransactionMade; }
+			set
+			{
+				if (value == _TransactionMade)
+					return;
+				_TransactionMade = value;
+				RaisePropertyChanged(nameof(TransactionMade));
+			}
+		}
 
 		/// <summary>
 		/// Получает список шаблонов транзакции
 		/// </summary>
-		public ObservableCollection<TransactionTemplate> TemplateTransacrion { get;private set; }
-
+		private ObservableCollection<TransactionTemplate> _TemplateTransacrion;
 		/// <summary>
 		/// Получает список шаблонов
 		/// </summary>
@@ -142,10 +154,15 @@ namespace MoneyAccounting
 		private void TemplateWorkAdd()
 		{
 			var TemplateShow = new TemplateTransactionShowWindowViewModel(_EditorWindowService);
-			TemplateShow.Initialize(TemplateTransacrion);
+			TemplateShow.Initialize(_TemplateTransacrion);
 
 			if (_EditorWindowService.ShowDialog(TemplateShow) ?? false)
+			{
 				TransactionMade = (TransactionMade)TemplateShow.CreateTransactionMade();
+				if (TransactionMade.KindAccount == AccountType.Bank)
+					IsTypeBank = true;
+			}
+				
 		}
 	}
 }

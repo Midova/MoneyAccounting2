@@ -72,12 +72,7 @@ namespace MoneyAccounting.EditTransactionMade
 		/// Получает транзакцию
 		/// </summary>
 		public TransactionMade TransactionMade { get; private set; }
-
-		/// <summary>
-		/// Получает список шаблонов транзакции
-		/// </summary>
-		public ObservableCollection<TransactionMade> TemplateTransacrion { get; private set; }
-
+		
 		/// <summary>
 		/// Получает список шаблонов
 		/// </summary>
@@ -86,7 +81,7 @@ namespace MoneyAccounting.EditTransactionMade
 		/// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
 		/// </summary>
-		private readonly IEditorWindowService _EditorWindowService; //убрала 
+		private readonly IEditorWindowService _EditorWindowService;
 
 		/// <summary>
 		/// Задает тип расчета (наличные или безналичные)
