@@ -40,7 +40,7 @@ namespace MoneyAccounting
 			ItemsTransactionMade.Filter = null;
 
 			_TransactionMade.CollectionChanged += _TransactionMade_CollectionChanged;
-					
+								
 			FillingCategoryList();
 			CategorysTransaction = new ListCollectionView(_CategorysTransaction);
 			
@@ -59,6 +59,8 @@ namespace MoneyAccounting
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
 		}
+
+		
 
 		private void _TransactionMade_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
@@ -190,11 +192,11 @@ namespace MoneyAccounting
 		{
 			var editor = new EditTransactionMadeViewModel(_EditroWindowService);
 			var current = (TransactionMade)ItemsTransactionMade.CurrentItem;
-
+						
 			editor.Initialize(current, _CategorysTransaction);
-
+			
 			if (_EditroWindowService.ShowDialog(editor) ?? false)
-			{
+			{				
 				current.Amount = editor.TransactionMade.Amount;
 				current.Category = editor.TransactionMade.Category;
 				current.Comment = editor.TransactionMade.Comment;

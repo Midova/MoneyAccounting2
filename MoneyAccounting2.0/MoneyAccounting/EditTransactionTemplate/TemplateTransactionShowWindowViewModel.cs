@@ -21,19 +21,31 @@ namespace MoneyAccounting.EditTransactionTemplate
 		public void Initialize(ObservableCollection<TransactionTemplate> templateTransacrion)
 		{
 			_TemplatesTransacrion = templateTransacrion;
-			TemplatesTransacrion = new ListCollectionView(_TemplatesTransacrion);			
+			TemplatesTransacrionList = new ListCollectionView(_TemplatesTransacrion);			
 		}
 
 		/// <summary>
 		/// Получает список шаблонов транзакции
 		/// </summary>
-		public ObservableCollection<TransactionTemplate> _TemplatesTransacrion;
+		private ObservableCollection<TransactionTemplate> _TemplatesTransacrion;
+
+		public ObservableCollection<TransactionTemplate> TemplatesTransacrion
+		{
+			get { return _TemplatesTransacrion; }
+			set
+			{
+				if (value == _TemplatesTransacrion)
+					return;
+				_TemplatesTransacrion = value;
+				RaisePropertyChanged(nameof(TemplatesTransacrion));
+
+			}
+		}
 
 		/// <summary>
 		/// получает список шаблонов
 		/// </summary>
-		public ListCollectionView TemplatesTransacrion { get; private set; }
-
+		public ListCollectionView TemplatesTransacrionList { get; private set; }
 
 		/// <summary>
 		/// поле: сервис изменение окна. Открытие окна в зависимости от типа.
@@ -42,7 +54,7 @@ namespace MoneyAccounting.EditTransactionTemplate
 
 		public TransactionMade CreateTransactionMade()
 		{
-			var current = (TransactionTemplate)TemplatesTransacrion.CurrentItem;
+			var current = (TransactionTemplate)TemplatesTransacrionList.CurrentItem;
 			if (current != null)
 				return current.CreateOperation();
 			return null;

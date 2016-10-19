@@ -18,7 +18,7 @@ namespace MoneyAccounting
 	/// <summary>
 	/// Логика взаимодействия для AddTransactionMadeView.xaml
 	/// </summary>
-	public partial class AddTransactionMadeView : MetroWindow
+	public partial class AddTransactionMadeView : Window
 	{
 		public AddTransactionMadeView()
 		{
