@@ -10,7 +10,7 @@ namespace Transaction.Data
 	public class MoneyOperation : ObservableObject
 	{
 		/// <summary>
-		/// Инициализация операции
+		/// Инициализация операции.
 		/// </summary>
 		public MoneyOperation()
 		{
@@ -19,23 +19,12 @@ namespace Transaction.Data
 			DateTime = DateTime.Now;
 			MoneyType = MoneyType.Cash;
 		}
-
+				
 		/// <summary>
-		/// Инициализация операции
-		/// </summary>
-		/// <param name="value">значение</param>
-		/// <param name="categorys">список категорий</param>
-		public MoneyOperation(double value, List<string> categorys) : this()
-		{
-			Value = value;
-			Categorys = categorys;
-		}
-
-		/// <summary>
-		/// Инициализация операции
+		/// Инициализация операции.
 		/// </summary>
 		/// <param name="initializer">Это вложенный класс для заполнения свойств целевого класса.</param>
-		public MoneyOperation(Initializer initializer)
+		public void Initialize(Initializer initializer)
 		{
 			Value = initializer.Value;
 			Categorys = initializer.Categorys;
@@ -44,10 +33,10 @@ namespace Transaction.Data
 		}
 
 		/// <summary>
-		/// Инициализация операции
+		/// Инициализация операции.
 		/// </summary>
 		/// <param name="moneyOperation">денежная операция</param>
-		public MoneyOperation(MoneyOperation moneyOperation)
+		public void Initialize(MoneyOperation moneyOperation)
 		{
 			Value = moneyOperation.Value;
 			Categorys = moneyOperation.Categorys;
@@ -56,7 +45,7 @@ namespace Transaction.Data
 		}
 				
 		/// <summary>
-		/// Инициализатор содержит поля для заполнения свойств целевого класса. Это вложенный класс
+		/// Инициализатор содержит поля для заполнения свойств целевого класса. Это вложенный класс.
 		/// </summary>
 		public class Initializer
 		{
@@ -81,6 +70,7 @@ namespace Transaction.Data
 			{
 				if (value == _Value)
 					return;
+
 				_Value = value;
 				RaisePropertyChanged(nameof(Value));
 				RaisePropertyChanged(nameof(IsDebit));
@@ -102,18 +92,19 @@ namespace Transaction.Data
 			{
 				if (value == _Categorys)
 					return;
+
 				_Categorys = value;
 				RaisePropertyChanged(nameof(Categorys));
 			}
 		}
 
 		/// <summary>
-		/// Дата данной операции
+		/// Дата данной операции.
 		/// </summary>
 		private DateTime _DataTime;
 		
 		/// <summary>
-		/// Получает и задает дату данной операции
+		/// Получает и задает дату данной операции.
 		/// </summary>
 		public DateTime DateTime
 		{
@@ -122,6 +113,7 @@ namespace Transaction.Data
 			{
 				if (value == _DataTime)
 					return;
+
 				_DataTime = value;
 				RaisePropertyChanged(nameof(DateTime));
 			}
@@ -142,6 +134,7 @@ namespace Transaction.Data
 			{
 				if (_MoneyType == value)
 					return;
+
 				_MoneyType = value;
 				RaisePropertyChanged(nameof(MoneyType));
 			}

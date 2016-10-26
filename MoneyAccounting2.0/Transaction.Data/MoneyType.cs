@@ -2,7 +2,7 @@
 namespace Transaction.Data
 {
 	/// <summary>
-	/// Тип денег
+	/// Тип денег.
 	/// </summary>
 	public enum MoneyType
 	{

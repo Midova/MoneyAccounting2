@@ -8,9 +8,8 @@ namespace Transaction.Data
 	/// </summary>
 	public class OperationTemplate : ObservableObject
 	{
-
 		/// <summary>
-		/// Инициализация шаблона
+		/// Инициализация шаблона.
 		/// </summary>
 		public OperationTemplate()
 		{
@@ -19,11 +18,11 @@ namespace Transaction.Data
 		}
 
 		/// <summary>
-		/// Инициализация шаблона
+		/// Инициализация шаблона.
 		/// </summary>
 		/// <param name="value"></param>
 		/// <param name="categorys"></param>
-		public OperationTemplate(double value, List<string> categorys)
+		public void Initialaze (double value, List<string> categorys)
 		{
 			Value = value;
 			Categorys = categorys;
@@ -44,6 +43,7 @@ namespace Transaction.Data
 			{
 				if (value == _Value)
 					return;
+
 				_Value = value;
 				RaisePropertyChanged(nameof(Value));				
 			}
@@ -64,18 +64,26 @@ namespace Transaction.Data
 			{
 				if (value == _Categorys)
 					return;
+
 				_Categorys = value;
 				RaisePropertyChanged(nameof(Categorys));
 			}
 		}
 
 		/// <summary>
-		/// Создание операции по подобию шалона
+		/// Создание операции по подобию шалона.
 		/// </summary>
 		/// <returns>операция по данному шаблону</returns>
 		public MoneyOperation CreateOperation()
-		{
-			return new MoneyOperation(Value, Categorys);
+		{		
+			var operation = new MoneyOperation();
+			operation.Initialize(new MoneyOperation.Initializer
+			{
+				Value = Value,
+				Categorys = Categorys
+			});
+
+			return operation;
 		}
 	}
 }

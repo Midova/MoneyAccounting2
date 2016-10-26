@@ -52,15 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="MoneyOperation.cs" />
     <Compile Include="MoneyType.cs" />
     <Compile Include="OperationTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Purse.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
