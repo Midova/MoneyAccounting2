@@ -84,9 +84,7 @@ namespace Transaction
 		{
 			var path = _FileOpenDialogService.OpenProjectFile();
 			
-			var purse = new Purse();
-
-			_Purse = purse.LoadPurse(path);
+			_Purse.LoadPurse(path);
 
 
 		}
