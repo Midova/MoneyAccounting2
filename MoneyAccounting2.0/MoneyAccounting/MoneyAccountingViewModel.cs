@@ -11,6 +11,9 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using System.ComponentModel;
 using MoneyAccounting.EditTransactionMade;
+using System.Xml.Serialization;
+using MoneyAccounting.Properties;
+using System.IO;
 
 namespace MoneyAccounting
 {
@@ -43,14 +46,18 @@ namespace MoneyAccounting
 								
 			FillingCategoryList();
 			CategorysTransaction = new ListCollectionView(_CategorysTransaction);
-			
+
+			FillingTypesAccountList();
+			TypesAccount = new ListCollectionView(_TypesAccount);
+
+
 			AddTransactionMadeCommand = new Command(AddTransactionMade);
 			EditTransactionMadeCommand = new Command(EditTransactionMade);
 			DeleteTransactionMadeCommand = new Command(DeleteTransactionMade, CanDeleteTransactionMade);
 			
 			Filter = new MoneyAccountingFilterViewModel(CategorysTransaction);
 
-			
+						
 			//выбор категории
 			Filter.CategorysFilter.CurrentChanged += CategorysFilter_CurrentChanged;
 			Filter.PropertyChanged += Filter_PropertyChanged;
@@ -58,6 +65,10 @@ namespace MoneyAccounting
 
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
+
+			SavePurseCommand = new Command(SavePurse);
+			SaveAsPurseCommand = new Command(SaveAsPurse);
+
 		}
 
 		
@@ -127,7 +138,6 @@ namespace MoneyAccounting
 		/// </summary>
 		public ObservableCollection<TransactionTemplate> _TemplatesTransacrion;
 
-
 		/// <summary>
 		/// Заполняет список категорий
 		/// </summary>
@@ -141,6 +151,25 @@ namespace MoneyAccounting
 
 			_CategorysTransaction = _CategorysTransaction.Distinct().ToList();
 		}
+
+		/// <summary>
+		/// список типов денег
+		/// </summary>
+		private List<string> _TypesAccount;
+
+		/// <summary>
+		/// получает список денег
+		/// </summary>
+		public ListCollectionView TypesAccount { get; private set; }
+
+		private void FillingTypesAccountList()
+		{
+			_TypesAccount = new List<string>();
+
+			_TypesAccount.Add("Cash");
+			_TypesAccount.Add("Bank");			
+		}
+
 
 		#endregion
 
@@ -279,9 +308,74 @@ namespace MoneyAccounting
 		/// </summary>
 		private void LoadPurse()
 		{
+			var path = _FileOpenDialogService.OpenProjectFile();
+			var xmlFileSerializer = new XmlSerializer(typeof(Purse));
 
+			if (!File.Exists(path))
+				return;
+
+			var reader = File.OpenRead(path);
+			var reSerializerFile = (Purse)xmlFileSerializer.Deserialize(reader);
+
+			_Purse.MadeTransaction.Clear();
+			_Purse.TemplateTransaction.Clear();
+			_Purse.NamePursr = reSerializerFile.NamePursr;
+
+			foreach (TransactionMade item in reSerializerFile.MadeTransaction)
+			{
+				_Purse.MadeTransaction.Add(item);
+			}
+
+			foreach (TransactionTemplate item in reSerializerFile.TemplateTransaction)
+			{
+				_Purse.TemplateTransaction.Add(item);
+			}
+
+			reader.Close();
 		}
 
+		/// <summary>
+		/// Обработчик сохранения данных в файл
+		/// </summary>
+		public ICommand SavePurseCommand { get; private set; }
+
+		/// <summary>
+		/// сохраниение данных в файл (из того из которого загрузили)
+		/// </summary>
+		private void SavePurse()
+		{
+			var xmlFileSerializer = new XmlSerializer(typeof(Purse));
+			var path = (string)Settings.Default.FilePath; // FilePath прописала в ручную
+
+			if (! string.IsNullOrWhiteSpace(path))
+			{
+				var writer = new StreamWriter(path);
+				xmlFileSerializer.Serialize(writer, _Purse);
+				writer.Close();
+			}
+		}
+
+		/// <summary>
+		/// Обработчик сохранения данных в новый файл.
+		/// </summary>
+		public ICommand SaveAsPurseCommand { get; private set; }
+
+		/// <summary>
+		/// сахранение данных в файл, который мы выбираем
+		/// </summary>
+		private void SaveAsPurse()
+		{
+			var path = _FileSaveDialogService.SaveProjectFile();
+
+			var xmlFileSerializer = new XmlSerializer(typeof(Purse));
+
+			if (!string.IsNullOrWhiteSpace(path))
+			{
+				var writer = new StreamWriter(path);
+				xmlFileSerializer.Serialize(writer, _Purse);
+				writer.Close();
+			}
+		}
 		#endregion
 	}
 }

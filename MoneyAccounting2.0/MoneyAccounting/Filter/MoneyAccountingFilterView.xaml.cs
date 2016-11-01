@@ -24,5 +24,7 @@ namespace MoneyAccounting
 		{
 			InitializeComponent();
 		}
+
+		
 	}
 }

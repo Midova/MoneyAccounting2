@@ -76,12 +76,13 @@ namespace Transaction.Data
 		/// <returns>операция по данному шаблону</returns>
 		public MoneyOperation CreateOperation()
 		{		
-			var operation = new MoneyOperation();
-			operation.Initialize(new MoneyOperation.Initializer
+			var ope = new MoneyOperation.Initializer
 			{
 				Value = Value,
 				Categorys = Categorys
-			});
+			};
+
+			 var operation = new MoneyOperation(ope);
 
 			return operation;
 		}

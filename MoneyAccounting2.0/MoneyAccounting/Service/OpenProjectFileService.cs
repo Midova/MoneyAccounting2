@@ -16,7 +16,7 @@ namespace MoneyAccounting
 			{
 				//свыбор только одного варианта
 				Multiselect = false,
-				//FileName = Settings.Default.FilePath, спросить у Володи FilePath
+				FileName = (string)Settings.Default.FilePath, //спросить у Володи FilePath
 				//расширение файла по умолчанию
 				DefaultExt = ".budget",
 				//показывает только файлы с нашим расширением

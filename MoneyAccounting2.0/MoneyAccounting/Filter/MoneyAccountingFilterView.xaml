@@ -29,11 +29,13 @@
             <DatePicker  Grid.Column="1" VerticalAlignment="Center" Margin="1" SelectedDate="{Binding EndDateFilter}"/>
         </Grid>
         <GroupBox Header="Type" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3">
-            <StackPanel>
-                <RadioButton GroupName="AccountType" Margin="1" IsChecked="{Binding IsTypeAll}">All</RadioButton>    
+
+            <ComboBox ItemsSource="{Binding TypesAccount}"/>
+            <!--<StackPanel>
+                --><!--<RadioButton GroupName="AccountType" Margin="1" IsChecked="{Binding IsTypeAll}">All</RadioButton>    
                 <RadioButton GroupName="AccountType" Margin="1" IsChecked="{Binding IsTypeBank}">Bank</RadioButton>
-                <RadioButton GroupName="AccountType" Margin="1" IsChecked="{Binding IsTypeCash}">Cash</RadioButton>    
-            </StackPanel>                    
+                <RadioButton GroupName="AccountType" Margin="1" IsChecked="{Binding IsTypeCash}">Cash</RadioButton>--><!--    
+            </StackPanel>-->                    
         </GroupBox>
                 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Category" VerticalAlignment="Stretch"/>

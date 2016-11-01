@@ -26,5 +26,11 @@ namespace MoneyAccounting.Properties
 				return defaultInstance;
 			}
 		}
+
+		public object FilePath
+		{
+			get { return ((string)(this["FilePath"]));}
+			set {this["FilePath"] = value;}
+		}
 	}
 }

@@ -24,7 +24,7 @@ namespace Transaction.Data
 		/// Инициализация операции.
 		/// </summary>
 		/// <param name="initializer">Это вложенный класс для заполнения свойств целевого класса.</param>
-		public void Initialize(Initializer initializer)
+		public MoneyOperation(Initializer initializer)
 		{
 			Value = initializer.Value;
 			Categorys = initializer.Categorys;
@@ -36,14 +36,14 @@ namespace Transaction.Data
 		/// Инициализация операции.
 		/// </summary>
 		/// <param name="moneyOperation">денежная операция</param>
-		public void Initialize(MoneyOperation moneyOperation)
+		public MoneyOperation(MoneyOperation moneyOperation)
 		{
 			Value = moneyOperation.Value;
 			Categorys = moneyOperation.Categorys;
 			DateTime = moneyOperation.DateTime;
 			MoneyType = moneyOperation.MoneyType;
 		}
-				
+
 		/// <summary>
 		/// Инициализатор содержит поля для заполнения свойств целевого класса. Это вложенный класс.
 		/// </summary>

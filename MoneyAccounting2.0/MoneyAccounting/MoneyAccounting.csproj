@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="EditTransactionMade\AddTransactionMadeViewModel.cs" />
     <Compile Include="Example.cs" />
+    <Compile Include="Service\EditorTypeAccount.cs" />
     <Compile Include="Service\IEditorWindowService.cs" />
     <Compile Include="Service\OpenProjectFileService.cs" />
     <Compile Include="Service\SaveProjectFileService.cs" />
@@ -188,6 +189,27 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\save_as.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\basket_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\basket_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\basket_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\save_close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

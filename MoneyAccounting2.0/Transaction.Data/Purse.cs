@@ -17,12 +17,29 @@ namespace Transaction.Data
 		public Purse()
 		{
 			NamePurse = string.Empty;
-			_MoneyOperations = new ObservableCollection<MoneyOperation>();
-			
-			MoneyOperations = new ReadOnlyObservableCollection<MoneyOperation>(_MoneyOperations);
 
-			_MoneyOperations.CollectionChanged += _MoneyOperations_CollectionChanged;
+			// проблема вот тут. тебя ввело в заблуждение обертка которую мы использовали.
+			// для изначального случая это очень неплохо работало
+			// почему это не работает так как ты ожидаешь?
+			// делов том что конструкция new ObservableCollection<MoneyOperation>(_MoneyOperations)
+			// не создает как таковой обертки, она просто копирует элементы из коллекции _MoneyOperations
+			// в коллекцию MoneyOperations. Так как сейчас _MoneyOperations пуста то и пуста MoneyOperations
+			// тоесть по факту это абсолютно разные никак не связанные коллекции
+			// все что здесь происходит это то что _MoneyOperations служит источником данных для MoneyOperations
+			// и никакой речи о синхронизации тут не идет тк эти коллекции не продоставляют такой функционал
+			// Объясню почему раньше работало: Дело в том что раньше тут был тип ReadonlyObservableCollection
+			// или один из ему подобных. Как раз эти типы и являются обетками, на сколько я помню, кстати так же как
+			// и ListCollectionView. Как сделать так что бы заработало. Нужно вспомнить что свойство может быть не авто а развернутым
+			// тоесть в этом случае нужно просто развернуть св-во MoneyOperations
+			// посмотреть можно как сделано свойство для уведомления об изменинях там где применияется
+			// RasePropertyChanged
+			MoneyOperations = new ObservableCollection<MoneyOperation>();
+			//MoneyOperations = new ObservableCollection<MoneyOperation>(_MoneyOperations);
 
+			//_MoneyOperations.CollectionChanged += _MoneyOperations_CollectionChanged;
+
+			// А вот тут все будет работать кстати так как нет приватного поля и посути 
+			// это обычно авто св-во.
 			OperationsTemplate = new ObservableCollection<OperationTemplate>();
 		}
 
@@ -39,17 +56,17 @@ namespace Transaction.Data
 		/// <summary>
 		/// Получает название кошелька.
 		/// </summary>
-		public string NamePurse { get; private set; }
+		public string NamePurse { get;  set; }
 
 		/// <summary>
 		/// Cписок операций.
 		/// </summary>
-		private readonly ObservableCollection<MoneyOperation> _MoneyOperations;
+		public ObservableCollection<MoneyOperation> MoneyOperations { get; private set; }
 
 		/// <summary>
 		/// Получает список операций.
 		/// </summary>
-		public ReadOnlyCollection<MoneyOperation> MoneyOperations { get; private set; }
+		//public ObservableCollection<MoneyOperation> MoneyOperations { get; private set; }
 
 		/// <summary>
 		/// Получает список шаблонов.
@@ -87,7 +104,7 @@ namespace Transaction.Data
 		/// <param name="moneyOperation">заданная операция</param>
 		public void AddMoneyOperation(MoneyOperation moneyOperation)
 		{
-			_MoneyOperations.Add(moneyOperation);
+			MoneyOperations.Add(moneyOperation);
 		}
 
 		/// <summary>
@@ -119,7 +136,7 @@ namespace Transaction.Data
 			var reSerializerFile = (Purse)xmlFileSerializer.Deserialize(reader);
 
 			purse.NamePurse = reSerializerFile.NamePurse;
-			purse._MoneyOperations.Clear();
+			purse.MoneyOperations.Clear();
 			purse.OperationsTemplate.Clear();
 						
 			foreach (MoneyOperation item in reSerializerFile.MoneyOperations)
@@ -142,7 +159,7 @@ namespace Transaction.Data
 		/// </summary>
 		/// <param name="path">путь к файлу</param>
 		/// <param name="purse">кошелк</param>
-		private void SavePurse(string path, Purse purse)
+		public void SavePurse(string path, Purse purse)
 		{
 			var xmlFileSerializer = new XmlSerializer(typeof(Purse));			
 
