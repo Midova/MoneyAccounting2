@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace Transaction.Service
 {
 	public class SaveProjectFileService : ISaveProjectFileService
-	{
-		public string SaveProjectFile()
+	{		
+		public bool? SaveProjectFile(out string path)
 		{
 			var dialog = new SaveFileDialog()
 			{
@@ -17,8 +17,9 @@ namespace Transaction.Service
 			};
 
 			var result = dialog.ShowDialog();
+			path = dialog.FileName;
 
-			return result == true ? dialog.FileName : string.Empty;
+			return result;
 		}
 	}
 }

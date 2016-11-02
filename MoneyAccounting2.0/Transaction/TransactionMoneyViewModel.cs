@@ -112,7 +112,11 @@ namespace Transaction
 		/// </summary>
 		private void SaveAsPurse()
 		{
-			var path = _FileSaveDialogService.SaveProjectFile();
+			string path;
+			var result = _FileSaveDialogService.SaveProjectFile(out path);
+
+			if (result != true)
+				return;
 
 			_Purse.SavePurse(path, _Purse);
 		}

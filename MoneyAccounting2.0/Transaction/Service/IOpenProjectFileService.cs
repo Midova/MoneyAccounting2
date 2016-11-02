@@ -5,8 +5,8 @@
 		/// <summary>
 		/// Открывает дилог выбора файла.
 		/// </summary>
-		/// <param name="path">Возвращает пуь к фацйлу.</param>
-		/// <returns>Истина - пользовавтель выбрал файлж Лож - отмена выбора.</returns>
+		/// <param name="path">Возвращает путь к файлу.</param>
+		/// <returns>Истина - пользовавтель выбрал файл. Ложь - отмена выбора.</returns>
 		bool? OpenProjectFile(out string path);
 	}
 }
