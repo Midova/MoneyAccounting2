@@ -117,8 +117,8 @@ namespace Transaction
 
 			if (result != true)
 				return;
-
-			_Purse.SavePurse(path, _Purse);
+			
+			Purse.SavePurse(path, _Purse);
 		}
 
 

@@ -142,7 +142,7 @@ namespace Transaction.Data
 		/// </summary>
 		/// <param name="path">путь к файлу</param>
 		/// <param name="purse">кошелк</param>
-		public void SavePurse(string path, Purse purse)
+		public static void SavePurse(string path, Purse purse)
 		{
 			var xmlFileSerializer = new XmlSerializer(typeof(Purse));			
 
