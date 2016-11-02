@@ -122,34 +122,19 @@ namespace Transaction.Data
 		/// <param name="namePurse">у</param>
 		/// <param name="path">Путь к файлу</param>
 		/// <returns></returns>
-		public void LoadPurse(string path)
+		public static Purse LoadPurse(string path)
 		{
-			var purse = new Purse();
-
 			var xmlFileSerializer = new XmlSerializer(typeof(Purse));
 
 			/// но тут должна быть ошибка
 			if (!File.Exists(path))
-				return ;
+				return null;
 
-			var reader = File.OpenRead(path);
-			var reSerializerFile = (Purse)xmlFileSerializer.Deserialize(reader);
-
-			NamePurse = reSerializerFile.NamePurse;
-			MoneyOperations.Clear();
-			OperationsTemplate.Clear();
-						
-			foreach (MoneyOperation item in reSerializerFile.MoneyOperations)
-			{
-				MoneyOperations.Add(item);
-			}
-
-			foreach (OperationTemplate item in reSerializerFile.OperationsTemplate)
-			{
-				OperationsTemplate.Add(item);
-			}
-
-			reader.Close();			
+			Purse result = null;
+			using (var reader = File.OpenRead(path))
+				result = (Purse)xmlFileSerializer.Deserialize(reader);
+			
+			return result;
 		}
 
 		/// <summary>

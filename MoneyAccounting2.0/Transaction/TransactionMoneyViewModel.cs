@@ -10,10 +10,11 @@ using Transaction.Properties;
 using Transaction.Service;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
+using Catel.Data;
 
 namespace Transaction
 {
-	public class TransactionMoneyViewModel
+	public class TransactionMoneyViewModel : ObservableObject
 	{
 		public TransactionMoneyViewModel()
 		{ }
@@ -25,18 +26,12 @@ namespace Transaction
 			_FileSaveDialogService = fileSaveDialogService;
 
 			_Purse = StartTestPurse.TestPurse();
-
-
+			
 			//в приватное поле передаем список транзакций из "кошелька"
-			_MoneyOperations = _Purse.MoneyOperations;
-			_OperationsTemplate = _Purse.OperationsTemplate;
-
-			_MoneyOperations.CollectionChanged += _MoneyOperations_CollectionChanged;
 
 			//создаем оболочку для работы со списком транзакций
-			ItemsMoneyOperations = new ListCollectionView(_MoneyOperations);
-
-
+			_ItemsMoneyOperations = new ListCollectionView(_Purse.MoneyOperations);
+			
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
 
@@ -45,10 +40,6 @@ namespace Transaction
 			SaveAsPurseCommand = new Command(SaveAsPurse);
 		}
 
-		private void _MoneyOperations_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-		{
-			
-		}
 		/// <summary>
 		/// поле: сервис открытие файла
 		/// </summary>
@@ -64,11 +55,12 @@ namespace Transaction
 		/// </summary>
 		private Purse _Purse;
 
-		private ObservableCollection<MoneyOperation> _MoneyOperations;
+		private ListCollectionView _ItemsMoneyOperations;
 
-		private ObservableCollection<OperationTemplate> _OperationsTemplate;
-
-		public ListCollectionView ItemsMoneyOperations { get; private set; }
+		public ListCollectionView ItemsMoneyOperations
+		{
+			get { return _ItemsMoneyOperations; }			
+		}
 
 		#region Load/Save 
 
@@ -82,11 +74,18 @@ namespace Transaction
 		/// </summary>
 		private void LoadPurse()
 		{
-			var path = _FileOpenDialogService.OpenProjectFile();
+			string path;
+			var result = _FileOpenDialogService.OpenProjectFile(out path);
+			if(result != true)
+				return;
+
+			_ItemsMoneyOperations.DetachFromSourceCollection();
+			_ItemsMoneyOperations = null;
 			
-			_Purse.LoadPurse(path);
+			_Purse = Purse.LoadPurse(path);
 
-
+			_ItemsMoneyOperations = new ListCollectionView(_Purse.MoneyOperations);
+			RaisePropertyChanged(nameof(ItemsMoneyOperations));
 		}
 
 		/// <summary>

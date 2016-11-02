@@ -9,7 +9,7 @@ namespace Transaction.Service
 {
 	public class OpenProjectFileService : IOpenProjectFileService
 	{
-		public string OpenProjectFile()
+		public bool? OpenProjectFile(out string path)
 		{
 			var dialog = new OpenFileDialog()
 			{
@@ -23,8 +23,9 @@ namespace Transaction.Service
 			};
 
 			var result = dialog.ShowDialog();
+			path = dialog.FileName;
 
-			return result == true ? dialog.FileName : string.Empty;
+			return result;
 		}
 	}
 }
