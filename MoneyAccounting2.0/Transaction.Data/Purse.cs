@@ -124,6 +124,7 @@ namespace Transaction.Data
 		/// <returns></returns>
 		public static Purse LoadPurse(string path)
 		{
+
 			var xmlFileSerializer = new XmlSerializer(typeof(Purse));
 
 			/// но тут должна быть ошибка

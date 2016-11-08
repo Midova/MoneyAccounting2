@@ -1,6 +1,7 @@
 ﻿using Catel.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Transaction.Data
 {
@@ -14,8 +15,10 @@ namespace Transaction.Data
 		/// </summary>
 		public MoneyOperation()
 		{
+			Id = Guid.NewGuid();
+
 			Value = 0D;
-			Categorys = new List<string>();
+			Categorys = new ObservableCollection<string>();
 			DateTime = DateTime.Now;
 			MoneyType = MoneyType.Cash;
 		}
@@ -26,6 +29,7 @@ namespace Transaction.Data
 		/// <param name="initializer">Это вложенный класс для заполнения свойств целевого класса.</param>
 		public MoneyOperation(Initializer initializer)
 		{
+			Id = Guid.NewGuid();
 			Value = initializer.Value;
 			Categorys = initializer.Categorys;
 			DateTime = initializer.DateTime;
@@ -38,6 +42,7 @@ namespace Transaction.Data
 		/// <param name="moneyOperation">денежная операция</param>
 		public MoneyOperation(MoneyOperation moneyOperation)
 		{
+			Id = Guid.NewGuid();
 			Value = moneyOperation.Value;
 			Categorys = moneyOperation.Categorys;
 			DateTime = moneyOperation.DateTime;
@@ -50,10 +55,15 @@ namespace Transaction.Data
 		public class Initializer
 		{
 			public double Value;
-			public List<string> Categorys;
+			public ObservableCollection<string> Categorys;
 			public DateTime DateTime;
 			public MoneyType MoneyType;
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public Guid Id { get; }
 
 		/// <summary>
 		/// Значение операции.
@@ -80,12 +90,12 @@ namespace Transaction.Data
 		/// <summary>
 		/// Cписок категорий для данной операции.
 		/// </summary>
-		private List<string> _Categorys;
+		private ObservableCollection<string> _Categorys;
 		
 		/// <summary>
 		/// Получает и задает список категорий для данной операции.
 		/// </summary>
-		public List<string> Categorys
+		public ObservableCollection<string> Categorys
 		{
 			get { return _Categorys; }
 			set

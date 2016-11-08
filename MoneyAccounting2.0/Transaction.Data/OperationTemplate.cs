@@ -1,5 +1,6 @@
 ﻿using Catel.Data;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Transaction.Data
 {
@@ -14,7 +15,7 @@ namespace Transaction.Data
 		public OperationTemplate()
 		{
 			Value = 0D;
-			Categorys = new List<string>();
+			Categorys = new ObservableCollection<string>();
 		}
 
 		/// <summary>
@@ -22,7 +23,7 @@ namespace Transaction.Data
 		/// </summary>
 		/// <param name="value"></param>
 		/// <param name="categorys"></param>
-		public void Initialaze (double value, List<string> categorys)
+		public void Initialaze (double value, ObservableCollection<string> categorys)
 		{
 			Value = value;
 			Categorys = categorys;
@@ -52,12 +53,12 @@ namespace Transaction.Data
 		/// <summary>
 		/// Cписок категорий для данного шаблона.
 		/// </summary>
-		private List<string> _Categorys;
+		private ObservableCollection<string> _Categorys;
 
 		/// <summary>
 		/// Получает и задает список категорий для данного шаблона.
 		/// </summary>
-		public List<string> Categorys
+		public ObservableCollection<string> Categorys
 		{
 			get { return _Categorys; }
 			set
