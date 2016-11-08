@@ -26,17 +26,38 @@
 
                 <Separator/>
 
-                <MenuItem  Header="Save" Command="{Binding SavePurseCommand}">
-                </MenuItem>
+                <!--<MenuItem  Header="Save" Command="{Binding SavePurseCommand}">
+                </MenuItem>-->
 
-                <MenuItem Header="Save as..." Command="{Binding SaveAsPurseCommand}">
+                <MenuItem Header="Save" Command="{Binding SaveAsPurseCommand}">
                 </MenuItem>
 
                 <Separator/>
 
-                <MenuItem Header="Close">
+                <MenuItem Header="Close" Command="{Binding CloseMainWindowCommand}">
                 </MenuItem>
 
+            </MenuItem>
+             <MenuItem Header="Operation" >
+                <MenuItem Header="Add" Command="{Binding }">
+                   
+                </MenuItem>
+                <MenuItem Header="Edit" Command="{Binding }">
+                     
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Delete" Command="{Binding }">                   
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Service" >
+                <MenuItem Header="Template">
+                   
+                </MenuItem>
+                <MenuItem Header="Category">
+                    
+                </MenuItem>                
+            </MenuItem>
+            <MenuItem Header="Help">
             </MenuItem>
         </Menu>
         <Expander Grid.Row="1" Header="" HorizontalAlignment="Stretch">            
@@ -46,7 +67,7 @@
         <DataGrid Grid.Row="2" Margin="5" ItemsSource="{Binding ItemsMoneyOperations}" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                
-                <DataGridTextColumn Header="Date" Binding="{Binding DateTime, StringFormat='dd/MM/yyyy'}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding DataTime, StringFormat='dd/MM/yyyy'}"/>
                 <DataGridTextColumn Header="Value" Binding="{Binding Value}"/>
                 <DataGridTextColumn Header="Categorys" Binding="{Binding Categorys}"/>
                 <DataGridTextColumn Header="Type Money" Binding="{Binding MoneyType }"/>
@@ -67,8 +88,9 @@
             </StackPanel>
         </Grid>
 
-        <StackPanel Grid.Row="4" Margin="5">
-            <TextBlock Text="Balance:"/>
+        <StackPanel Grid.Row="4" Margin="5" Orientation="Horizontal">
+            <TextBlock Text="Balance:" />
+            <TextBlock Text="{Binding Balance}"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -23,6 +23,6 @@ namespace Transaction
 		public MainWindow()
 		{
 			InitializeComponent();
-		}
+		}		
 	}
 }

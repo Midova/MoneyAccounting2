@@ -10,19 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Transaction
+namespace Transaction.EditingMoneyOperation
 {
 	/// <summary>
-	/// Логика взаимодействия для TransactionMoneyView.xaml
+	/// Логика взаимодействия для EditOperationMadeView.xaml
 	/// </summary>
-	public partial class TransactionMoneyView : UserControl
+	public partial class EditOperationMadeView : Window
 	{
-		public TransactionMoneyView()
+		public EditOperationMadeView()
 		{
 			InitializeComponent();
-		}		
+		}
+
+		private void OkButton_Click(object sender, RoutedEventArgs e)
+		{
+			DialogResult = true;
+			Close();
+		}
 	}
 }

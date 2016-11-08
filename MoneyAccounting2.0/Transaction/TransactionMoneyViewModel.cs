@@ -26,20 +26,25 @@ namespace Transaction
 			_FileSaveDialogService = fileSaveDialogService;
 
 			_Purse = StartTestPurse.TestPurse();
-			
+
 			//в приватное поле передаем список транзакций из "кошелька"
+						
+			FillViewModelOperations();
 
 			//создаем оболочку для работы со списком транзакций
-			_ItemsMoneyOperations = new ListCollectionView(_Purse.MoneyOperations);
-			
+			_ItemsMoneyOperations = new ListCollectionView(ViewModelOperations);
+									
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
 
 			//сохранение в файл
 			SavePurseCommand = new Command(SavePurse);
 			SaveAsPurseCommand = new Command(SaveAsPurse);
+
+			CloseMainWindowCommand = new Command(CloseMainWindow);
 		}
 
+		
 		/// <summary>
 		/// поле: сервис открытие файла
 		/// </summary>
@@ -55,11 +60,36 @@ namespace Transaction
 		/// </summary>
 		private Purse _Purse;
 
+		public ObservableCollection<MoneyOperationViewModel> ViewModelOperations { get; private set; }
+
+		/// <summary>
+		/// поле: список операций
+		/// </summary>
 		private ListCollectionView _ItemsMoneyOperations;
 
+		/// <summary>
+		/// Свойство: получает списоксовершеных транзакций. Оболочка для работы со списком операций.
+		/// </summary>
 		public ListCollectionView ItemsMoneyOperations
 		{
 			get { return _ItemsMoneyOperations; }			
+		}
+
+		public double Balance
+		{
+			get { return _Purse.Balance; }
+		}
+
+		public void FillViewModelOperations()
+		{
+			ViewModelOperations = new ObservableCollection<MoneyOperationViewModel>();
+
+			foreach (var item in _Purse.MoneyOperations)
+			{
+				var result = new MoneyOperationViewModel();
+				result.Initialization(item);
+				ViewModelOperations.Add(result);
+			}
 		}
 
 		#region Load/Save 
@@ -84,8 +114,10 @@ namespace Transaction
 			
 			_Purse = Purse.LoadPurse(path);
 
-			_ItemsMoneyOperations = new ListCollectionView(_Purse.MoneyOperations);
+			FillViewModelOperations();
+			_ItemsMoneyOperations = new ListCollectionView(ViewModelOperations);
 			RaisePropertyChanged(nameof(ItemsMoneyOperations));
+			RaisePropertyChanged(nameof(Balance));
 		}
 
 		/// <summary>
@@ -106,7 +138,7 @@ namespace Transaction
 		/// </summary>
 		public ICommand SaveAsPurseCommand { get; private set; }
 		
-
+		 
 		/// <summary>
 		/// сахранение данных в файл, который мы выбираем
 		/// </summary>
@@ -121,8 +153,20 @@ namespace Transaction
 			Purse.SavePurse(path, _Purse);
 		}
 
+		/// <summary>
+		/// Обработчик закрытия окна
+		/// </summary>
+		public ICommand CloseMainWindowCommand { get; private set; }
 
-
+		/// <summary>
+		/// Закрытие окна с отпиской от событий.
+		/// </summary>
+		private void CloseMainWindow()
+		{
+			_ItemsMoneyOperations.DetachFromSourceCollection();
+			_ItemsMoneyOperations = null;
+			Environment.Exit(0);
+		}
 		#endregion
 	}
 }

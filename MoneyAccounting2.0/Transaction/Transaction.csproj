@@ -87,15 +87,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EditingMoneyOperation\AddOperationMadeView.xaml.cs">
+      <DependentUpon>AddOperationMadeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditingMoneyOperation\CategorysListView.xaml.cs">
+      <DependentUpon>CategorysListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditingMoneyOperation\EditOperationMadeView.xaml.cs">
+      <DependentUpon>EditOperationMadeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MoneyOperationViewModel.cs" />
     <Compile Include="Service\IOpenProjectFileService.cs" />
     <Compile Include="Service\ISaveProjectFileService.cs" />
+    <Compile Include="Service\IShowWindowService.cs" />
     <Compile Include="Service\OpenProjectFileService.cs" />
     <Compile Include="Service\SaveProjectFileService.cs" />
+    <Compile Include="Service\ShowWindowService.cs" />
     <Compile Include="StartTestPurse.cs" />
     <Compile Include="TransactionMoneyView.xaml.cs">
       <DependentUpon>TransactionMoneyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TransactionMoneyViewModel.cs" />
+    <Page Include="EditingMoneyOperation\AddOperationMadeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditingMoneyOperation\CategorysListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditingMoneyOperation\EditOperationMadeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
