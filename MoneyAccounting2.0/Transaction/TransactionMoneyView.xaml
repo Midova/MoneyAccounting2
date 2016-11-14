@@ -39,14 +39,14 @@
 
             </MenuItem>
              <MenuItem Header="Operation" >
-                <MenuItem Header="Add" Command="{Binding }">
+                <MenuItem Header="Add" Command="{Binding AddMoneyOperationCommand}">
                    
                 </MenuItem>
-                <MenuItem Header="Edit" Command="{Binding }">
+                <MenuItem Header="Edit" Command="{Binding EditMoneyOperationCommand}">
                      
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Delete" Command="{Binding }">                   
+                <MenuItem Header="Delete" Command="{Binding DeleteMoneyOperationCommand}">                   
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Service" >

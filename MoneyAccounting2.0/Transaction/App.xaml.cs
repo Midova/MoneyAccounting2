@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Transaction.EditingMoneyOperation;
 using Transaction.Service;
 
 namespace Transaction
@@ -22,13 +23,33 @@ namespace Transaction
 			
 			var openFileService = new OpenProjectFileService();
 			var saveFileService = new SaveProjectFileService();
+			var showWindowService = new ShowWindowService();
 
-			var comtext = new TransactionMoneyViewModel(openFileService, saveFileService);
+			showWindowService.Add(typeof(AddOperationViewModel), typeof(AddOperationView));
+			showWindowService.Add(typeof(CategorysListViewModel), typeof(CategorysListView));
+			showWindowService.Add(typeof(EditOperationViewModel), typeof(EditOperationView));
+			showWindowService.Add(typeof(DeleteOperationViewModel), typeof(DeleteOperationView));
 
-
-			mainWindow.DataContext = comtext;
+			var context = new TransactionMoneyViewModel(openFileService, saveFileService, showWindowService);
+			context.OnWindowClosed += Context_OnWindowClosed;
+			
+			mainWindow.DataContext = context;
+			MainWindow.Closing += MainWindow_Closing;
 			MainWindow = mainWindow;
-			MainWindow.Show();
+			MainWindow.Show();								
+		}
+
+		private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			((TransactionMoneyViewModel)MainWindow.DataContext).OnWindowClosed -= Context_OnWindowClosed;
+		}
+
+		/// <summary>
+		/// Закрывает главное окно
+		/// </summary>
+		private void Context_OnWindowClosed(object sender, EventArgs e)
+		{
+			MainWindow.Close();
 		}
 	}
 }

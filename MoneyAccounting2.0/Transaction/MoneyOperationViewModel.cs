@@ -14,9 +14,9 @@ namespace Transaction
 		public void Initialization(MoneyOperation moneyOperation)
 		{
 			_Operation = moneyOperation;
-			_Operation.Categorys.CollectionChanged += Categorys_CollectionChanged;
+			_Operation.Categories.CollectionChanged += Categorys_CollectionChanged;
 		}
-
+		
 		private void Categorys_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
 			RaisePropertyChanged(nameof(Categorys));
@@ -42,17 +42,7 @@ namespace Transaction
 		/// <summary>
 		/// Получает список категорий
 		/// </summary>
-		public string Categorys => string.Join(",", _Operation.Categorys);
-		//{
-		//	get { return _Categorys; }
-		//	set
-		//	{
-		//		if (value == _Categorys)
-		//			return;
-		//		_Categorys = value;
-		//		RaisePropertyChanged(nameof(Categorys));
-		//	}
-		//}
+		public string Categorys => string.Join(",", _Operation.Categories);
 
 		/// <summary>
 		/// Получает дату операции

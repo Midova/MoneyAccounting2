@@ -87,15 +87,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="EditingMoneyOperation\AddOperationMadeView.xaml.cs">
-      <DependentUpon>AddOperationMadeView.xaml</DependentUpon>
+    <Compile Include="EditingMoneyOperation\AddOperationView.xaml.cs">
+      <DependentUpon>AddOperationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditingMoneyOperation\AddOperationViewModel.cs" />
     <Compile Include="EditingMoneyOperation\CategorysListView.xaml.cs">
       <DependentUpon>CategorysListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditingMoneyOperation\EditOperationMadeView.xaml.cs">
-      <DependentUpon>EditOperationMadeView.xaml</DependentUpon>
+    <Compile Include="EditingMoneyOperation\CategorysListViewModel.cs" />
+    <Compile Include="EditingMoneyOperation\DeleteOperationView.xaml.cs">
+      <DependentUpon>DeleteOperationView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditingMoneyOperation\DeleteOperationViewModel.cs" />
+    <Compile Include="EditingMoneyOperation\EditOperationView.xaml.cs">
+      <DependentUpon>EditOperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditingMoneyOperation\EditOperationViewModel.cs" />
+    <Compile Include="EditingMoneyOperation\ListBoxSeledtItemsBehavior.cs" />
     <Compile Include="MoneyOperationViewModel.cs" />
     <Compile Include="Service\IOpenProjectFileService.cs" />
     <Compile Include="Service\ISaveProjectFileService.cs" />
@@ -108,7 +116,7 @@
       <DependentUpon>TransactionMoneyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TransactionMoneyViewModel.cs" />
-    <Page Include="EditingMoneyOperation\AddOperationMadeView.xaml">
+    <Page Include="EditingMoneyOperation\AddOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,7 +124,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EditingMoneyOperation\EditOperationMadeView.xaml">
+    <Page Include="EditingMoneyOperation\DeleteOperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditingMoneyOperation\EditOperationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

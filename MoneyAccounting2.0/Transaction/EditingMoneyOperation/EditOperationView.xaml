@@ -1,11 +1,11 @@
-﻿<Window x:Class="Transaction.EditingMoneyOperation.EditOperationMadeView"
+﻿<Window x:Class="Transaction.EditingMoneyOperation.EditOperationView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Transaction.EditingMoneyOperation"
         mc:Ignorable="d"
-        Title="EditOperationMadeView" Height="350" Width="400">
+        Title="EditOperationView" Height="350" Width="400">
    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -22,21 +22,21 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-           <ComboBox Grid.Column="0" ItemsSource="{Binding}" IsEditable="False"/>
+           <ComboBox Grid.Column="0" ItemsSource="{Binding MoneyOperation.Categorys}" IsEditable="False"/>
             <Button Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ShowWindowCommentCommand}">+</Button>
         </Grid>     
         </GroupBox>         
         
         <GroupBox Grid.Row="1" Header="Amount">            
-                <TextBox Text="{Binding }" Margin="5"/>       
+                <TextBox Text="{Binding MoneyOperation.Value}" Margin="5"/>       
         </GroupBox>       
 
         <GroupBox  Grid.Row="2" Header="DateTime">            
-                 <DatePicker Margin="5" SelectedDate="{Binding }"/>        
+                 <DatePicker Margin="5" SelectedDate="{Binding MoneyOperation.DateTime}"/>        
         </GroupBox>     
         
         <GroupBox  Grid.Row="3" Header="Type Account:">            
-                <ComboBox  Margin="5" ItemsSource="{Binding}" IsEditable="False"/>           
+                <ComboBox  Margin="5" ItemsSource="{Binding MoneyType}" IsEditable="False"/>           
         </GroupBox>      
 
         <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="5" Width="auto">

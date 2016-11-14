@@ -23,6 +23,13 @@ namespace Transaction
 
 			var operations = result.MoneyOperations;
 
+			result.Categorys.Add("входящий остаток");
+			result.Categorys.Add("зарплата");
+			result.Categorys.Add("дом");
+			result.Categorys.Add("еда");
+			result.Categorys.Add("ремонт");
+			result.Categorys.Add("врач");
+
 			return result;
 		}
 	}

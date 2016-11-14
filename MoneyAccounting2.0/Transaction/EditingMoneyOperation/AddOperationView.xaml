@@ -1,0 +1,58 @@
+﻿<Window x:Class="Transaction.EditingMoneyOperation.AddOperationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Transaction.EditingMoneyOperation"
+        mc:Ignorable="d"
+        Title="AddOperationView" Height="350" Width="400"
+        d:DataContext="{d:DesignInstance local:AddOperationViewModel}">
+    
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>           
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+         <GroupBox Grid.Row="0" Header="Category">            
+             <Grid Margin="5">
+                 <Grid.ColumnDefinitions>
+                     <ColumnDefinition/>
+                     <ColumnDefinition Width="auto"/>
+                 </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding Categoies, Mode=OneWay}" IsEnabled="False" />
+                <!--<ComboBox Grid.Column="0" ItemsSource="{Binding MoneyOperation.Categorys}" IsEditable="False" HorizontalAlignment="Stretch"/>-->
+                <Button Grid.Column="1" HorizontalAlignment="Right" Command="{Binding ShowWindowCommentCommand}">+</Button>                 
+             </Grid>     
+        </GroupBox>         
+        
+        <GroupBox Grid.Row="1" Header="Value">            
+                <TextBox Text="{Binding Value}" Margin="5"/>       
+        </GroupBox>
+
+        <GroupBox  Grid.Row="2" Header="DateTime">
+            <DatePicker Margin="5" SelectedDate="{Binding Date}"/>        
+        </GroupBox>     
+        
+        <GroupBox  Grid.Row="3" Header="Type Account:">
+            <ComboBox  Margin="5" ItemsSource="{Binding AvailableMoneyTypes}" SelectedItem="{Binding MoneyType}" IsEditable="False"/>           
+        </GroupBox>
+        <StackPanel Grid.Row="5" >
+            <TextBlock Text="{Binding IsDebit, Mode=OneWay}" />
+            <CheckBox IsChecked="{Binding IsAddTemlate}" >Save as template</CheckBox >    
+        </StackPanel>
+        
+
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right"  Margin="5" Width="auto">
+            <Button Command="{Binding }">Add the template</Button>
+            <Button x:Name="OkButton" Click="OkButton_Click"  Width="55" Margin="4,0">Ok</Button>            
+            <Button IsCancel="True" Width="55">Cancel</Button>            
+        </StackPanel>
+
+    </Grid>
+</Window>

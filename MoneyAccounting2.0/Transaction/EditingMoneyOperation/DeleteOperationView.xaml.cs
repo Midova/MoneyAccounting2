@@ -15,16 +15,16 @@ using System.Windows.Shapes;
 namespace Transaction.EditingMoneyOperation
 {
 	/// <summary>
-	/// Логика взаимодействия для AddOperationMadeView.xaml
+	/// Логика взаимодействия для DeleteOperationView.xaml
 	/// </summary>
-	public partial class AddOperationMadeView : Window
+	public partial class DeleteOperationView : Window
 	{
-		public AddOperationMadeView()
+		public DeleteOperationView()
 		{
 			InitializeComponent();
 		}
 
-		private void OkButton_Click(object sender, RoutedEventArgs e)
+		private void YesButtom_Click(object sender, RoutedEventArgs e)
 		{
 			DialogResult = true;
 			Close();

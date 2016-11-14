@@ -225,7 +225,7 @@ namespace MoneyAccounting
 			editor.Initialize(current, _CategorysTransaction);
 			
 			if (_EditroWindowService.ShowDialog(editor) ?? false)
-			{				
+			{
 				current.Amount = editor.TransactionMade.Amount;
 				current.Category = editor.TransactionMade.Category;
 				current.Comment = editor.TransactionMade.Comment;

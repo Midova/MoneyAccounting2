@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:Transaction.EditingMoneyOperation"
         mc:Ignorable="d"
         Title="CategorysListView" Height="350" Width="200">   
@@ -17,9 +18,13 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Category :" Margin="5"/>
-        
-        <ListBox Grid.Column="0" Grid.Row="1" Margin="5" SelectionMode="Multiple" ItemsSource="{Binding }"/>
-       
+
+        <ListBox x:Name="listBox" Grid.Column="0" Grid.Row="1" Margin="5" SelectionMode="Multiple" ItemsSource="{Binding Categorys}">
+            <i:Interaction.Behaviors>
+                <local:ListBoxSeledtItemsBehavior SelectedItems="{Binding SelectedItems}"/>
+            </i:Interaction.Behaviors>
+        </ListBox>
+
         <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5" Width="auto">
             <Button x:Name="OkButton" Click="OkButton_Click" Width="55" Margin="4">Ok</Button>
             <Button IsCancel="True" Width="55" Margin="4">Cansel</Button>

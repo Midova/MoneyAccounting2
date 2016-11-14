@@ -17,9 +17,9 @@ namespace Transaction.EditingMoneyOperation
 	/// <summary>
 	/// Логика взаимодействия для EditOperationMadeView.xaml
 	/// </summary>
-	public partial class EditOperationMadeView : Window
+	public partial class EditOperationView : Window
 	{
-		public EditOperationMadeView()
+		public EditOperationView()
 		{
 			InitializeComponent();
 		}

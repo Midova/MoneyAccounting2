@@ -41,6 +41,8 @@ namespace Transaction.Data
 			// А вот тут все будет работать кстати так как нет приватного поля и посути 
 			// это обычно авто св-во.
 			OperationsTemplate = new ObservableCollection<OperationTemplate>();
+
+			Categorys = new ObservableCollection<string>();
 		}
 
 		private void _MoneyOperations_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -76,8 +78,7 @@ namespace Transaction.Data
 		/// <summary>
 		/// Получает список категорий.
 		/// </summary>
-		public IReadOnlyList<string> Categorys =>
-			MoneyOperations.SelectMany(operation => operation.Categorys).Distinct().ToList();
+		public ObservableCollection<string> Categorys { get; private set; }
 
 		/// <summary>
 		/// Получает баланc.

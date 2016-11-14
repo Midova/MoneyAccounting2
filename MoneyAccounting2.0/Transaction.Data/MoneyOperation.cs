@@ -18,7 +18,7 @@ namespace Transaction.Data
 			Id = Guid.NewGuid();
 
 			Value = 0D;
-			Categorys = new ObservableCollection<string>();
+			Categories = new ObservableCollection<string>();
 			DateTime = DateTime.Now;
 			MoneyType = MoneyType.Cash;
 		}
@@ -31,7 +31,7 @@ namespace Transaction.Data
 		{
 			Id = Guid.NewGuid();
 			Value = initializer.Value;
-			Categorys = initializer.Categorys;
+			Categories = initializer.Categorys;
 			DateTime = initializer.DateTime;
 			MoneyType = initializer.MoneyType;
 		}
@@ -44,7 +44,7 @@ namespace Transaction.Data
 		{
 			Id = Guid.NewGuid();
 			Value = moneyOperation.Value;
-			Categorys = moneyOperation.Categorys;
+			Categories = moneyOperation.Categories;
 			DateTime = moneyOperation.DateTime;
 			MoneyType = moneyOperation.MoneyType;
 		}
@@ -90,21 +90,21 @@ namespace Transaction.Data
 		/// <summary>
 		/// Cписок категорий для данной операции.
 		/// </summary>
-		private ObservableCollection<string> _Categorys;
+		private ObservableCollection<string> _Categories;
 		
 		/// <summary>
 		/// Получает и задает список категорий для данной операции.
 		/// </summary>
-		public ObservableCollection<string> Categorys
+		public ObservableCollection<string> Categories
 		{
-			get { return _Categorys; }
+			get { return _Categories; }
 			set
 			{
-				if (value == _Categorys)
+				if (value == _Categories)
 					return;
 
-				_Categorys = value;
-				RaisePropertyChanged(nameof(Categorys));
+				_Categories = value;
+				RaisePropertyChanged(nameof(Categories));
 			}
 		}
 

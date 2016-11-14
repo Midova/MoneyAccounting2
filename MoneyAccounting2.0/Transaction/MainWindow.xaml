@@ -8,10 +8,8 @@
         Title="MainWindow" Height="350" Width="525">
     
     <Window.Resources>
-        <DataTemplate DataType = "{x:Type local:TransactionMoneyViewModel}">
-          
-            <local:TransactionMoneyView />
-        
+        <DataTemplate DataType = "{x:Type local:TransactionMoneyViewModel}">          
+            <local:TransactionMoneyView />        
         </DataTemplate>
     </Window.Resources>
 
