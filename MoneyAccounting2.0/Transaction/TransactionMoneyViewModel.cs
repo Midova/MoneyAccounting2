@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Data;
 using Catel.Data;
 using Transaction.EditingMoneyOperation;
+using Transaction.Template_Category;
 
 namespace Transaction
 {
@@ -37,13 +38,19 @@ namespace Transaction
 			//загрузки из файла.
 			LoadPurseCommand = new Command(LoadPurse);
 			//сохранение в файл.		
+			SavePurseCommand = new Command(SavePurse);
+			//сохранение в файл.		
 			SaveAsPurseCommand = new Command(SaveAsPurse);
+
 			//закрытие главного окна.
 			CloseMainWindowCommand = new Command(CloseMainWindow);
 
 			AddMoneyOperationCommand = new Command(AddMoneyOperation);
-			EditMoneyOperationCommand = new Command(EditMoneyOperation);
-			DeleteMoneyOperationCommand = new Command(DeleteMoneyOperation, CanDeleteMoneyOperation);
+			EditMoneyOperationCommand = new Command(EditMoneyOperation, CanCurrentMoneyOperation);
+			DeleteMoneyOperationCommand = new Command(DeleteMoneyOperation, CanCurrentMoneyOperation);
+
+			EditCategoresCollectionCommand = new Command(EditCategoresCollection);
+			EditTemplateCollectionCommand = new Command(EditTemplateCollection);
 
 		}		
 		#region Infrastructure
@@ -80,7 +87,7 @@ namespace Transaction
 		private ListCollectionView _ItemsMoneyOperations;
 		
 		/// <summary>
-		/// Свойство: получает списоксовершеных транзакций. Оболочка для работы со списком операций.
+		/// Свойство: получает список совершеных транзакций. Оболочка для работы со списком операций.
 		/// </summary>
 		public ListCollectionView ItemsMoneyOperations
 		{
@@ -134,7 +141,27 @@ namespace Transaction
 
 			RaisePropertyChanged(nameof(Balance));
 		}
-		
+
+		/// <summary>
+		/// Обработчик сохранения данных в новый файл.
+		/// </summary>
+		public ICommand SavePurseCommand { get; private set; }
+
+		/// <summary>
+		/// сахранение данных в файл, который мы выбираем
+		/// </summary>
+		private void SavePurse()
+		{
+			string path;
+			var result = _FileSaveDialogService.SaveProjectFile(out path);
+
+			if (result != true)
+				return;
+
+			Purse.SavePurse(path, _Purse);
+		}
+
+
 		/// <summary>
 		/// Обработчик сохранения данных в новый файл.
 		/// </summary>
@@ -251,7 +278,7 @@ namespace Transaction
 		/// Метод: можно ли совершить удаление
 		/// </summary>
 		/// <returns>Истина- список операций не пустой и выбранна операция. Ложь- иначе </returns>
-		private bool CanDeleteMoneyOperation()
+		private bool CanCurrentMoneyOperation()
 		{
 			return ItemsMoneyOperations != null && ItemsMoneyOperations.CurrentItem != null;
 		}
@@ -279,6 +306,59 @@ namespace Transaction
 			{
 				_ViewModelOperations.RemoveAt(_Purse.MoneyOperations.IndexOf(current));
 				_Purse.MoneyOperations.RemoveAt(_Purse.MoneyOperations.IndexOf(current));				
+			}
+		}
+
+		#endregion
+
+		#region Servises
+
+		public ICommand EditCategoresCollectionCommand { get; private set; }
+
+		private void EditCategoresCollection()
+		{
+			var editor = new CategoryCollectionViewModel(_ShowWindowService);
+			editor.Initialize(_Purse.Categorys);
+
+			if (_ShowWindowService.ShowDialog(editor)??false)
+			{
+				var editedCategory = editor.CategorysOperation.Select(category => category.Value);
+				foreach (var item in editedCategory.Where(newCategory => !_Purse.Categorys.Contains(newCategory)).ToArray())
+					_Purse.Categorys.Add(item);
+				
+				foreach (var item in _Purse.Categorys.Where(oldCategory => !editedCategory.Contains(oldCategory)).ToArray())
+					_Purse.Categorys.Remove(item);
+			}
+
+			//var editor = new CategoryCollectionViewModel(_ShowWindowService);
+			//editor.Initialize(_Purse.Categorys);
+
+			//if (_ShowWindowService.ShowDialog(editor) ?? false)
+			//{
+			//	var editedCategory = editor.CategorysOperation.Select(category => category.Value);
+
+			//	foreach (var item in editedCategory)
+			//	{
+			//		if (!_Purse.Categorys.Contains(item))
+			//			_Purse.Categorys.Add(item);
+			//	}
+
+			//	var deletedCategoryes = _Purse.Categorys.Where(oldCategory => !editedCategory.Contains(oldCategory)).ToList();
+			//	foreach (var item in deletedCategoryes)
+			//		_Purse.Categorys.Remove(item);
+			//}
+		}
+
+		public ICommand EditTemplateCollectionCommand { get; private set; }
+
+		private void EditTemplateCollection()
+		{
+			var editor = new TemplateCollectionViewModel(_ShowWindowService);
+			editor.Initialize(_Purse.OperationsTemplate);
+
+			if(_ShowWindowService.ShowDialog(editor) ?? false)
+			{
+
 			}
 		}
 

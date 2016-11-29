@@ -19,7 +19,7 @@ namespace Transaction
 			init.Categorys.Add("ремонт");
 			result.AddMoneyOperation(new MoneyOperation(init));
 			result.AddMoneyOperation(new MoneyOperation());
-			result.AddOperationTemplate(new OperationTemplate());
+			//result.AddOperationTemplate(new OperationTemplate());
 
 			var operations = result.MoneyOperations;
 
@@ -29,6 +29,14 @@ namespace Transaction
 			result.Categorys.Add("еда");
 			result.Categorys.Add("ремонт");
 			result.Categorys.Add("врач");
+
+
+			var temp = new OperationTemplate();
+			temp.Initialaze( 8,new ObservableCollection<string> { "дом", "ремонт" });
+
+			result.OperationsTemplate.Add(temp);
+			result.OperationsTemplate.Add(new OperationTemplate());
+
 
 			return result;
 		}

@@ -22,40 +22,63 @@
             <MenuItem Header="File" >
 
                 <MenuItem Header="Open" Command="{Binding LoadPurseCommand}">
+                   <MenuItem.Icon>
+                        <Image Source="Resources/Images/download.png"/>
+                    </MenuItem.Icon>
                 </MenuItem>
 
                 <Separator/>
 
-                <!--<MenuItem  Header="Save" Command="{Binding SavePurseCommand}">
-                </MenuItem>-->
+                <MenuItem  Header="Save" Command="{Binding SavePurseCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Images/save_close.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
 
-                <MenuItem Header="Save" Command="{Binding SaveAsPurseCommand}">
+                <MenuItem Header="Save as..." Command="{Binding SaveAsPurseCommand}">
+                     <MenuItem.Icon>
+                        <Image Source="Resources/Images/save_as.png"/>
+                    </MenuItem.Icon>                
                 </MenuItem>
 
                 <Separator/>
 
                 <MenuItem Header="Close" Command="{Binding CloseMainWindowCommand}">
+                     <MenuItem.Icon>
+                        <Image Source="Resources/Images/cross.png"/>
+                    </MenuItem.Icon>
                 </MenuItem>
 
             </MenuItem>
              <MenuItem Header="Operation" >
                 <MenuItem Header="Add" Command="{Binding AddMoneyOperationCommand}">
-                   
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Images/basket_add.png"/>
+                    </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Edit" Command="{Binding EditMoneyOperationCommand}">
-                     
+                     <MenuItem.Icon>
+                        <Image Source="Resources/Images/basket_edit.png"/>
+                    </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Delete" Command="{Binding DeleteMoneyOperationCommand}">                   
+                <MenuItem Header="Delete" Command="{Binding DeleteMoneyOperationCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Images/basket_delete.png"/>
+                    </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Service" >
-                <MenuItem Header="Template">
-                   
+                <MenuItem Header="Template" Command="{Binding EditTemplateCollectionCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Images/edit_zone_templates.png"/>
+                    </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Category">
-                    
-                </MenuItem>                
+                <MenuItem Header="Category" Command="{Binding EditCategoresCollectionCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="Resources/Images/category.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
             </MenuItem>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Transaction.EditingMoneyOperation;
 using Transaction.Service;
+using Transaction.Template_Category;
 
 namespace Transaction
 {
@@ -29,6 +30,8 @@ namespace Transaction
 			showWindowService.Add(typeof(CategorysListViewModel), typeof(CategorysListView));
 			showWindowService.Add(typeof(EditOperationViewModel), typeof(EditOperationView));
 			showWindowService.Add(typeof(DeleteOperationViewModel), typeof(DeleteOperationView));
+			showWindowService.Add(typeof(CategoryCollectionViewModel), typeof(CategoryCollectionView));
+			showWindowService.Add(typeof(TemplateCollectionViewModel), typeof(TemplateCollectionView));
 
 			var context = new TransactionMoneyViewModel(openFileService, saveFileService, showWindowService);
 			context.OnWindowClosed += Context_OnWindowClosed;
